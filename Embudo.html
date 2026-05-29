@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Editor Visual Dinámico - Plantilla Canva</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(145deg, #f5f7fc 0%, #e9eef4 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    /* Tarjeta principal con color de fondo dinámico */
+    .dynamic-card {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Panel de controles mejorado */
+    .controls-panel {
+      background: #1e293b;
+      padding: 1.2rem 1.8rem;
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+      border-bottom: 3px solid #f97316;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 120px;
+    }
+
+    .control-group label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .control-group input, 
+    .control-group select {
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 0.5rem 0.8rem;
+      border-radius: 12px;
+      color: white;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .control-group input[type="color"] {
+      padding: 0.3rem;
+      min-height: 38px;
+    }
+
+    .control-group input:hover,
+    .control-group select:hover {
+      border-color: #f97316;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus {
+      outline: none;
+      border-color: #f97316;
+      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #334155;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.8rem;
+    }
+
+    .btn-primary {
+      background: #f97316;
+      color: #0f172a;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background: #fdba74;
+      transform: scale(1.02);
+    }
+
+    .btn:hover {
+      background: #475569;
+      transform: translateY(-1px);
+    }
+
+    /* Vista previa del embed */
+    .preview-container {
+      padding: 2rem;
+      background: #f1f5f9;
+    }
+
+    .canva-wrapper {
+      position: relative;
+      width: 100%;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .canva-embed {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-top: 56.25%;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: box-shadow 0.3s, border-radius 0.3s;
+      background: #000;
+    }
+
+    .canva-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+
+    /* Footer totalmente dinámico y editable */
+    .dynamic-footer {
+      padding: 1.5rem 2rem;
+      background: white;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      cursor: text;
+      outline: none;
+      padding: 0.2rem 0;
+      border-bottom: 2px dashed #cbd5e1;
+      display: inline-block;
+    }
+    .brand-title[contenteditable="true"]:hover {
+      border-bottom-color: #f97316;
+    }
+
+    .credit-link {
+      font-size: 0.9rem;
+      background: #f8fafc;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: 1px solid #e2e8f0;
+    }
+    .credit-link[contenteditable="true"] {
+      cursor: text;
+      background: #fff;
+    }
+    .credit-link[contenteditable="true"]:hover {
+      background: #fff;
+      border-color: #f97316;
+    }
+
+    .badge {
+      background: #e2e8f0;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #334155;
+    }
+
+    .info-message {
+      font-size: 0.75rem;
+      color: #64748b;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .embed-url-input {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      width: 250px;
+      font-family: monospace;
+    }
+
+    @media (max-width: 740px) {
+      body { padding: 1rem; }
+      .controls-panel { flex-direction: column; align-items: stretch; }
+      .button-group { margin-left: 0; justify-content: flex-start; }
+      .dynamic-footer { flex-direction: column; align-items: flex-start; }
+      .embed-url-input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dynamic-card" id="app">
+  <div class="controls-panel">
+    <div class="control-group">
+      <label>🎬 ASPECTO (ratio)</label>
+      <select id="aspectSelect">
+        <option value="56.25">16:9 (por defecto)</option>
+        <option value="75">4:3 (clásico)</option>
+        <option value="41.66">21:9 (cinemascope)</option>
+        <option value="100">1:1 (cuadrado)</option>
+        <option value="177.77">9:16 (vertical / stories)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>📐 BORDE REDONDEADO (px)</label>
+      <input type="range" id="radiusRange" min="0" max="40" value="16" step="1">
+      <span id="radiusValue" style="font-size: 0.7rem; color:#cbd5e1;">16px</span>
+    </div>
+
+    <div class="control-group">
+      <label>🎨 SOMBRA (intensidad)</label>
+      <select id="shadowSelect">
+        <option value="0.1">Ligera</option>
+        <option value="0.2" selected>Media (por defecto)</option>
+        <option value="0.35">Fuerte</option>
+        <option value="0">Sin sombra</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>🎨 COLOR DE FONDO (tarjeta)</label>
+      <input type="color" id="bgColorPicker" value="#ffffff">
+    </div>
+
+    <div class="button-group">
+      <button id="resetBtn" class="btn">⟳ Restablecer todo</button>
+      <button id="applyNewEmbedBtn" class="btn btn-primary">🖼️ Cambiar diseño Canva</button>
+    </div>
+  </div>
+
+  <div class="preview-container">
+    <div class="canva-wrapper" id="canvaWrapper">
+      <div class="canva-embed" id="canvaEmbedContainer" style="padding-top: 56.25%; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);">
+        <iframe loading="lazy"
+          id="canvaIframe"
+          src="https://www.canva.com/design/DAHLEd14nJ0/RMu_Z8nmyFuKSTXkt3XCQQ/view?embed"
+          allowfullscreen="allowfullscreen" 
+          allow="fullscreen">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="dynamic-footer" id="footer">
+    <div class="brand-info">
+      <!-- Título completamente editable en línea -->
+      <div class="brand-title" id="editableTitle" contenteditable="true">🚀 Embudo de Ventas Dinámico</div>
+      <div class="info-message">
+        <span>🔄 Haz clic en cualquier texto para editarlo • Los cambios se guardan automáticamente</span>
+      </div>
+    </div>
+    <div id="linkContainer">
+      <!-- Enlace editable en línea (el texto se puede modificar directamente) -->
+      <a href="https://www.canva.com/design/DAHLEd14nJ0/RMu_Z8nmyFuKSTXkt3XCQQ/view?utm_content=DAHLEd14nJ0&utm_campaign=designshare&utm_medium=embeds&utm_source=link" 
+         target="_blank" 
+         rel="noopener"
+         id="dynamicLink"
+         class="credit-link"
+         contenteditable="true">
+        🔗 Ver en Canva: Plantilla Embudo
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Elementos del DOM
+    const embedContainer = document.getElementById('canvaEmbedContainer');
+    const iframeElement = document.getElementById('canvaIframe');
+    const aspectSelect = document.getElementById('aspectSelect');
+    const radiusRange = document.getElementById('radiusRange');
+    const radiusValueSpan = document.getElementById('radiusValue');
+    const shadowSelect = document.getElementById('shadowSelect');
+    const bgColorPicker = document.getElementById('bgColorPicker');
+    const resetBtn = document.getElementById('resetBtn');
+    const applyNewEmbedBtn = document.getElementById('applyNewEmbedBtn');
+    const dynamicLink = document.getElementById('dynamicLink');
+    const editableTitle = document.getElementById('editableTitle');
+    const dynamicCard = document.querySelector('.dynamic-card');
+
+    // Configuración original
+    const originalAspect = '56.25';
+    const originalRadius = 16;
+    const originalShadow = '0.2';
+    const originalBgColor = '#ffffff';
+    const originalIframeSrc = "https://www.canva.com/design/DAHLEd14nJ0/RMu_Z8nmyFuKSTXkt3XCQQ/view?embed";
+    const originalLinkText = "🔗 Ver en Canva: Plantilla Embudo";
+    const originalLinkHref = "https://www.canva.com/design/DAHLEd14nJ0/RMu_Z8nmyFuKSTXkt3XCQQ/view?utm_content=DAHLEd14nJ0&utm_campaign=designshare&utm_medium=embeds&utm_source=link";
+    const originalTitleText = "🚀 Embudo de Ventas Dinámico";
+
+    // Funciones de actualización UI
+    function updateAspectRatio(value) {
+      if (embedContainer) embedContainer.style.paddingTop = value + '%';
+    }
+
+    function updateBorderRadius(radiusPx) {
+      if (embedContainer) embedContainer.style.borderRadius = radiusPx + 'px';
+      if (radiusValueSpan) radiusValueSpan.innerText = radiusPx + 'px';
+    }
+
+    function updateShadow(intensity) {
+      if (!embedContainer) return;
+      const shadowValue = parseFloat(intensity);
+      if (shadowValue === 0) {
+        embedContainer.style.boxShadow = 'none';
+      } else {
+        embedContainer.style.boxShadow = `0 12px 28px -8px rgba(0, 0, 0, ${shadowValue})`;
+      }
+    }
+
+    function updateCardBackground(color) {
+      if (dynamicCard) dynamicCard.style.backgroundColor = color;
+    }
+
+    // Guardar y cargar preferencias desde localStorage
+    function savePreference(key, value) {
+      localStorage.setItem('canva_dynamic_' + key, value);
+    }
+
+    function loadSavedPreferences() {
+      const savedAspect = localStorage.getItem('canva_dynamic_aspect');
+      if (savedAspect && aspectSelect.querySelector(`option[value="${savedAspect}"]`)) {
+        aspectSelect.value = savedAspect;
+        updateAspectRatio(savedAspect);
+      } else {
+        aspectSelect.value = originalAspect;
+        updateAspectRatio(originalAspect);
+      }
+      
+      const savedRadius = localStorage.getItem('canva_dynamic_radius');
+      let radius = savedRadius ? parseInt(savedRadius) : originalRadius;
+      radiusRange.value = radius;
+      updateBorderRadius(radius);
+      
+      const savedShadow = localStorage.getItem('canva_dynamic_shadow');
+      let shadowIntensity = savedShadow || originalShadow;
+      shadowSelect.value = shadowIntensity;
+      updateShadow(shadowIntensity);
+      
+      const savedBg = localStorage.getItem('canva_dynamic_bgcolor');
+      let bgColor = savedBg || originalBgColor;
+      bgColorPicker.value = bgColor;
+      updateCardBackground(bgColor);
+      
+      // Cargar textos personalizados
+      const savedTitle = localStorage.getItem('canva_dynamic_title');
+      if (savedTitle) editableTitle.innerText = savedTitle;
+      
+      const savedLinkText = localStorage.getItem('canva_dynamic_linktext');
+      if (savedLinkText) dynamicLink.innerText = savedLinkText;
+      
+      const savedLinkHref = localStorage.getItem('canva_dynamic_linkhref');
+      if (savedLinkHref) dynamicLink.href = savedLinkHref;
+      
+      const savedIframeSrc = localStorage.getItem('canva_dynamic_iframesrc');
+      if (savedIframeSrc && savedIframeSrc.includes('canva.com')) {
+        iframeElement.src = savedIframeSrc;
+      }
+    }
+    
+    // Event listeners con guardado automático
+    function bindEvents() {
+      aspectSelect.addEventListener('change', (e) => {
+        const newAspect = e.target.value;
+        updateAspectRatio(newAspect);
+        savePreference('aspect', newAspect);
+      });
+      
+      radiusRange.addEventListener('input', (e) => {
+        const radius = parseInt(e.target.value);
+        updateBorderRadius(radius);
+        savePreference('radius', radius);
+      });
+      
+      shadowSelect.addEventListener('change', (e) => {
+        const shadowIntensity = e.target.value;
+        updateShadow(shadowIntensity);
+        savePreference('shadow', shadowIntensity);
+      });
+      
+      bgColorPicker.addEventListener('input', (e) => {
+        const newColor = e.target.value;
+        updateCardBackground(newColor);
+        savePreference('bgcolor', newColor);
+      });
+      
+      // Edición en línea: Título
+      editableTitle.addEventListener('blur', () => {
+        const newTitle = editableTitle.innerText;
+        savePreference('title', newTitle);
+      });
+      editableTitle.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          editableTitle.blur();
+        }
+      });
+      
+      // Edición en línea: Texto del enlace
+      dynamicLink.addEventListener('blur', () => {
+        let newLinkText = dynamicLink.innerText;
+        savePreference('linktext', newLinkText);
+      });
+      dynamicLink.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          dynamicLink.blur();
+        }
+      });
+      
+      // Si se modifica la URL manualmente (por ejemplo con el botón de cambiar diseño) se guarda
+    }
+    
+    // Función para cambiar el diseño (embed) de Canva
+    function changeCanvaDesign() {
+      const newEmbedUrl = prompt("🎨 Pegar la URL del nuevo diseño de Canva (embed):\nEjemplo: https://www.canva.com/design/XXXXXX/view?embed", iframeElement.src);
+      if (newEmbedUrl && newEmbedUrl.includes('canva.com') && newEmbedUrl.includes('view?embed')) {
+        iframeElement.src = newEmbedUrl;
+        savePreference('iframesrc', newEmbedUrl);
+        
+        // Intentar generar un enlace para el footer basado en la nueva URL
+        let baseForLink = newEmbedUrl.replace('/view?embed', '/view');
+        if (!baseForLink.includes('?utm_content')) {
+          baseForLink = baseForLink + "?utm_content=share&utm_campaign=designshare&utm_medium=embeds&utm_source=link";
+        }
+        dynamicLink.href = baseForLink;
+        savePreference('linkhref', baseForLink);
+        
+        alert("✅ Nuevo diseño cargado correctamente. El enlace del footer se ha actualizado.");
+      } else if (newEmbedUrl) {
+        alert("❌ URL inválida. Asegúrate de copiar el enlace de tipo 'embed' de Canva.");
+      }
+    }
+    
+    // Restablecer completamente todos los valores (visuales y de contenido)
+    function resetEverything() {
+      // Reset visual
+      aspectSelect.value = originalAspect;
+      updateAspectRatio(originalAspect);
+      savePreference('aspect', originalAspect);
+      
+      radiusRange.value = originalRadius;
+      updateBorderRadius(originalRadius);
+      savePreference('radius', originalRadius);
+      
+      shadowSelect.value = originalShadow;
+      updateShadow(originalShadow);
+      savePreference('shadow', originalShadow);
+      
+      bgColorPicker.value = originalBgColor;
+      updateCardBackground(originalBgColor);
+      savePreference('bgcolor', originalBgColor);
+      
+      // Reset de contenido dinámico
+      editableTitle.innerText = originalTitleText;
+      savePreference('title', originalTitleText);
+      
+      dynamicLink.innerText = originalLinkText;
+      dynamicLink.href = originalLinkHref;
+      savePreference('linktext', originalLinkText);
+      savePreference('linkhref', originalLinkHref);
+      
+      iframeElement.src = originalIframeSrc;
+      savePreference('iframesrc', originalIframeSrc);
+      
+      // Pequeño feedback
+      showToast("✨ Todo ha sido restablecido a los valores originales");
+    }
+    
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.innerText = message;
+      toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#1e293b; color:#f97316; padding:10px 20px; border-radius:40px; font-size:0.85rem; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.2); backdrop-filter:blur(4px); font-weight:500;';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    }
+    
+    // Configurar doble clic en el wrapper para cambiar el diseño (alternativa rápida)
+    const previewContainer = document.querySelector('.preview-container');
+    if (previewContainer) {
+      previewContainer.addEventListener('dblclick', (e) => {
+        if (e.target.closest('.canva-embed')) {
+          changeCanvaDesign();
+        }
+      });
+      previewContainer.title = "Doble clic en el diseño para cambiarlo";
+    }
+    
+    applyNewEmbedBtn.addEventListener('click', changeCanvaDesign);
+    resetBtn.addEventListener('click', resetEverything);
+    
+    // Inicializar
+    function init() {
+      loadSavedPreferences();
+      bindEvents();
+    }
+    
+    init();
+  })();
+</script>
+</body>
+</html>
