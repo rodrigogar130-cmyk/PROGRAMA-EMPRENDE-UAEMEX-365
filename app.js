@@ -57,3 +57,72 @@
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── VISOR DEL ESQUEMA DEL EVENTO ──
+const eventImageModal = document.getElementById('eventImageModal');
+const openEventScheme = document.getElementById('openEventScheme');
+const closeEventScheme = document.getElementById('closeEventScheme');
+const eventImageScroll = eventImageModal?.querySelector('.event-image-scroll');
+let eventSchemePreviousFocus = null;
+
+function abrirEsquemaEvento() {
+  if (!eventImageModal) return;
+  eventSchemePreviousFocus = document.activeElement;
+  eventImageModal.classList.add('open');
+  eventImageModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  if (eventImageScroll) {
+    eventImageScroll.scrollTop = 0;
+    eventImageScroll.scrollLeft = 0;
+  }
+  closeEventScheme?.focus();
+}
+
+function cerrarEsquemaEvento() {
+  if (!eventImageModal || !eventImageModal.classList.contains('open')) return;
+  eventImageModal.classList.remove('open');
+  eventImageModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  eventSchemePreviousFocus?.focus();
+}
+
+openEventScheme?.addEventListener('click', abrirEsquemaEvento);
+closeEventScheme?.addEventListener('click', cerrarEsquemaEvento);
+
+eventImageModal?.addEventListener('click', event => {
+  if (event.target === eventImageModal) cerrarEsquemaEvento();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') cerrarEsquemaEvento();
+});
+
+// accion abrir y cerrar PDf
+function abrirPDF(rutaPDF) {
+    document.getElementById('pdfViewer').src = rutaPDF;
+    document.getElementById('pdfModal').style.display = 'block';
+}
+
+function cerrarPDF() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfViewer').src = '';
+}
+// accion abrir y cerrar video
+function abrirVideo(url) {
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("videoPlayer");
+
+  video.src = url;
+  modal.style.display = "block";
+  video.load();
+  video.play();
+}
+
+function cerrarVideo() {
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("videoPlayer");
+
+  video.pause();
+  video.src = "";
+  modal.style.display = "none";
+}

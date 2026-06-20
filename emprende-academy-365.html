@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emprende Academy 365 · Reporte Ejecutivo UAEMéx</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --verde: #006747;
+    --verde-claro: #00875a;
+    --verde-menta: #00b87a;
+    --dorado: #c8952a;
+    --dorado-claro: #f0b429;
+    --carbon: #0f1923;
+    --carbon-2: #1a2635;
+    --carbon-3: #243447;
+    --gris-1: #f4f6f9;
+    --gris-2: #e8ecf1;
+    --gris-3: #c8d0da;
+    --texto: #1e2d3d;
+    --texto-suave: #5a6a7a;
+    --blanco: #ffffff;
+    --rojo-alerta: #d63b3b;
+    --naranja: #e07b39;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gris-1);
+    color: var(--texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,25,35,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,103,71,0.4);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .nav-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--verde), var(--verde-menta));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: white;
+    letter-spacing: -1px;
+  }
+  .nav-title { color: white; font-weight: 600; font-size: 14px; letter-spacing: 0.02em; }
+  .nav-sub { color: var(--gris-3); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--gris-3); text-decoration: none; font-size: 13px;
+    font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde-menta); }
+  .nav-badge {
+    background: var(--verde); color: white;
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--carbon) 0%, var(--carbon-2) 50%, #0d1f2f 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+  }
+  .hero-bg-lines {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .hero-bg-lines::before {
+    content: '';
+    position: absolute; top: -50%; right: -10%;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(0,184,122,0.07) 0%, transparent 70%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .hero-bg-lines::after {
+    content: '';
+    position: absolute; bottom: -20%; left: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,149,42,0.05) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,103,71,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,103,71,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 1280px; margin: 0 auto; width: 100%;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,184,122,0.12);
+    border: 1px solid rgba(0,184,122,0.3);
+    padding: 6px 16px; border-radius: 20px;
+    color: var(--verde-menta); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px; background: var(--verde-menta);
+    border-radius: 50%; animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .hero-headline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 5vw, 68px);
+    font-weight: 700; color: white;
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .hero-headline .accent {
+    background: linear-gradient(90deg, var(--verde-menta), var(--dorado-claro));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 18px; color: rgba(255,255,255,0.6);
+    max-width: 600px; margin-bottom: 56px; font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    margin-top: 16px;
+  }
+
+  .kpi-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 28px 24px;
+    backdrop-filter: blur(8px);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+  .kpi-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,184,122,0.4);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--verde), var(--verde-menta));
+  }
+  .kpi-card.gold::before { background: linear-gradient(90deg, var(--dorado), var(--dorado-claro)); }
+  .kpi-card.teal::before { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+  .kpi-card.purple::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+  .kpi-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .kpi-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px; font-weight: 700; color: white;
+    line-height: 1; margin-bottom: 6px;
+    animation: countUp 1.5s ease-out forwards;
+  }
+  .kpi-label { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500; line-height: 1.4; }
+
+  /* ── SECCIONES ── */
+  section {
+    padding: 96px 48px;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .full-section { max-width: none; }
+  .full-section .inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--verde);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-eyebrow::before {
+    content: ''; display: block; width: 24px; height: 2px; background: var(--verde);
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700; color: var(--texto);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    font-size: 16px; color: var(--texto-suave);
+    max-width: 600px; line-height: 1.7; margin-bottom: 56px;
+  }
+
+  /* ── CHARTS ── */
+  .charts-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .charts-grid-3 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .chart-card {
+    background: white; border-radius: 20px;
+    padding: 32px; box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    border: 1px solid var(--gris-2);
+  }
+  .chart-card.wide { grid-column: span 2; }
+  .chart-title {
+    font-size: 15px; font-weight: 700; color: var(--texto);
+    margin-bottom: 4px;
+  }
+  .chart-sub {
+    font-size: 12px; color: var(--texto-suave); margin-bottom: 24px;
+  }
+  .chart-wrap { position: relative; height: 240px; }
+  .chart-wrap.tall { height: 300px; }
+
+  /* ── BARRERAS HEATMAP ── */
+  #barreras-section {
+    background: var(--carbon);
+    padding: 96px 0;
+  }
+  .barriers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-top: 40px;
+  }
+  .barrier-card {
+    border-radius: 16px; padding: 32px;
+    position: relative; overflow: hidden;
+  }
+  .barrier-card.critico {
+    background: linear-gradient(135deg, rgba(214,59,59,0.15), rgba(214,59,59,0.05));
+    border: 1px solid rgba(214,59,59,0.3);
+  }
+  .barrier-card.alto {
+    background: linear-gradient(135deg, rgba(224,123,57,0.15), rgba(224,123,57,0.05));
+    border: 1px solid rgba(224,123,57,0.3);
+  }
+  .barrier-level {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 12px; margin-bottom: 16px;
+  }
+  .barrier-card.critico .barrier-level { background: rgba(214,59,59,0.2); color: #ff6b6b; }
+  .barrier-card.alto .barrier-level { background: rgba(224,123,57,0.2); color: #ffaa6b; }
+  .barrier-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: white; margin-bottom: 12px; }
+  .barrier-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; }
+  .barrier-score { display: flex; align-items: center; gap: 12px; }
+  .score-bars { display: flex; gap: 4px; }
+  .score-bar {
+    width: 18px; height: 32px; border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+    transition: background 0.3s;
+  }
+  .score-bar.filled-red { background: var(--rojo-alerta); }
+  .score-bar.filled-orange { background: var(--naranja); }
+  .score-label { font-size: 24px; font-weight: 800; color: white; font-family: 'Space Grotesk', sans-serif; }
+  .score-max { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  /* ── INSIGHTS SECTION ── */
+  #insights-section { background: var(--gris-1); }
+  .insight-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .insight-card {
+    background: white; border-radius: 20px; padding: 36px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    border: 1px solid var(--gris-2);
+    display: flex; flex-direction: column; gap: 16px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  .insight-card::after {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: linear-gradient(180deg, var(--verde), var(--verde-menta));
+  }
+  .insight-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px; font-weight: 800;
+    color: var(--verde); line-height: 1;
+    opacity: 0.15; position: absolute; right: 24px; bottom: 16px;
+  }
+  .insight-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--verde);
+    background: rgba(0,103,71,0.08); padding: 4px 10px; border-radius: 8px;
+    display: inline-block;
+  }
+  .insight-head { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--texto); }
+  .insight-body { font-size: 14px; color: var(--texto-suave); line-height: 1.7; }
+
+  /* ── OPORTUNIDAD ── */
+  #oportunidad-section { background: linear-gradient(135deg, var(--verde) 0%, #004a33 100%); }
+  #oportunidad-section .section-eyebrow { color: var(--verde-menta); }
+  #oportunidad-section .section-eyebrow::before { background: var(--verde-menta); }
+  #oportunidad-section .section-title { color: white; }
+  #oportunidad-section .section-desc { color: rgba(255,255,255,0.7); }
+  .opp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .opp-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px; padding: 28px 20px;
+    text-align: center;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .opp-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-4px); }
+  .opp-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .opp-title { font-size: 14px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .opp-text { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+  /* ── VALIDACIÓN METRICS ── */
+  .validation-band {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    background: white; border-radius: 20px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    overflow: hidden; border: 1px solid var(--gris-2);
+  }
+  .val-item {
+    padding: 40px 36px;
+    border-right: 1px solid var(--gris-2);
+    text-align: center;
+  }
+  .val-item:last-child { border-right: none; }
+  .val-pct {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 56px; font-weight: 800;
+    color: var(--verde); line-height: 1;
+    display: block; margin-bottom: 8px;
+  }
+  .val-label { font-size: 14px; color: var(--texto-suave); font-weight: 500; }
+  .val-sub { font-size: 12px; color: var(--gris-3); margin-top: 4px; }
+
+  /* ── ROADMAP ── */
+  #roadmap-section { background: var(--carbon); }
+  #roadmap-section .section-eyebrow { color: var(--verde-menta); }
+  #roadmap-section .section-eyebrow::before { background: var(--verde-menta); }
+  #roadmap-section .section-title { color: white; }
+  #roadmap-section .section-desc { color: rgba(255,255,255,0.6); }
+
+  .roadmap-track {
+    position: relative;
+    display: flex; align-items: flex-start; gap: 0;
+    padding: 40px 0;
+  }
+  .roadmap-connector {
+    position: absolute; top: 56px; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--verde), var(--verde-menta), var(--dorado-claro));
+  }
+  .roadmap-step {
+    flex: 1; text-align: center; position: relative; padding: 0 12px;
+  }
+  .roadmap-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--carbon-3);
+    border: 3px solid var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 18px; position: relative; z-index: 1;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .roadmap-step:hover .roadmap-dot {
+    transform: scale(1.15);
+    border-color: var(--verde-menta);
+    background: rgba(0,184,122,0.15);
+  }
+  .roadmap-step.active .roadmap-dot {
+    background: var(--verde);
+    border-color: var(--verde-menta);
+    box-shadow: 0 0 24px rgba(0,184,122,0.4);
+  }
+  .roadmap-phase {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--verde-menta); margin-bottom: 8px;
+  }
+  .roadmap-title { font-size: 14px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .roadmap-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .roadmap-tag {
+    display: inline-block; margin-top: 10px;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 11px; font-weight: 600;
+  }
+  .tag-now { background: rgba(0,184,122,0.2); color: var(--verde-menta); }
+  .tag-q3 { background: rgba(0,135,90,0.15); color: #4dd9a0; }
+  .tag-q4 { background: rgba(200,149,42,0.15); color: var(--dorado-claro); }
+  .tag-2026 { background: rgba(200,149,42,0.2); color: #f5c560; }
+  .tag-2026 { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+
+  /* ── HERRAMIENTAS ── */
+  .tools-list { display: flex; flex-direction: column; gap: 12px; }
+  .tool-row {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--gris-1); border-radius: 12px; padding: 14px 18px;
+  }
+  .tool-icon { font-size: 20px; width: 32px; text-align: center; flex-shrink: 0; }
+  .tool-name { font-size: 14px; font-weight: 600; color: var(--texto); flex: 1; }
+  .tool-bar-wrap { flex: 2; background: var(--gris-2); border-radius: 8px; height: 8px; overflow: hidden; }
+  .tool-bar { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--verde), var(--verde-menta)); transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .tool-pct { font-size: 13px; font-weight: 700; color: var(--verde); width: 36px; text-align: right; flex-shrink: 0; }
+
+  /* ── PARTICIPACIÓN POR ESPACIO ── */
+  .espacios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .espacio-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--gris-2); }
+  .espacio-rank { font-size: 12px; font-weight: 700; color: var(--gris-3); width: 20px; }
+  .espacio-name { font-size: 13px; color: var(--texto); flex: 1; }
+  .espacio-bar-w { flex: 1; background: var(--gris-2); border-radius: 4px; height: 6px; }
+  .espacio-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--verde), var(--verde-menta)); }
+  .espacio-n { font-size: 12px; font-weight: 700; color: var(--verde); width: 20px; text-align: right; }
+
+  /* ── QUOTE ── */
+  .pull-quote {
+    background: linear-gradient(135deg, rgba(0,103,71,0.06), rgba(0,103,71,0.02));
+    border: 1px solid rgba(0,103,71,0.15);
+    border-left: 4px solid var(--verde);
+    border-radius: 0 16px 16px 0;
+    padding: 32px 36px; margin: 48px 0;
+    font-size: 18px; color: var(--texto);
+    font-style: italic; line-height: 1.7;
+  }
+  .pull-quote strong { color: var(--verde); font-style: normal; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--carbon); padding: 48px;
+    text-align: center;
+  }
+  .footer-brand { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .footer-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 64px 24px; }
+    .full-section .inner { padding: 0 24px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .charts-grid { grid-template-columns: 1fr; }
+    .chart-card.wide { grid-column: span 1; }
+    .charts-grid-3 { grid-template-columns: 1fr 1fr; }
+    .opp-grid { grid-template-columns: repeat(3, 1fr); }
+    .validation-band { grid-template-columns: 1fr; }
+    .val-item { border-right: none; border-bottom: 1px solid var(--gris-2); }
+    .barriers-grid { grid-template-columns: 1fr; }
+    .insight-cards { grid-template-columns: 1fr; }
+    .roadmap-track { flex-direction: column; gap: 24px; }
+    .roadmap-connector { display: none; }
+    .roadmap-step { text-align: left; display: flex; gap: 16px; align-items: flex-start; }
+    .roadmap-dot { margin: 0; flex-shrink: 0; }
+    .espacios-grid { grid-template-columns: 1fr; }
+    #hero { padding: 100px 24px 60px; }
+    .hero-headline { font-size: 32px; }
+  }
+
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kpi-value { font-size: 32px; }
+    .charts-grid-3 { grid-template-columns: 1fr; }
+    .opp-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">E</div>
+    <div>
+      <div class="nav-title">Emprende Academy 365</div>
+      <div class="nav-sub">Reporte Ejecutivo · UAEMéx</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#hallazgos">Hallazgos</a>
+    <a href="#barreras-section">Barreras</a>
+    <a href="#insights-section">Insights</a>
+    <a href="#oportunidad-section">Oportunidad</a>
+    <a href="#roadmap-section">Roadmap</a>
+  </div>
+  <div class="nav-badge">Junio 2026</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding-top:120px; max-width:none;">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Encuesta de Validación · Dirección de Desarrollo Empresarial</div>
+    <h1 class="hero-headline">
+      La comunidad universitaria<br>
+      ya <span class="accent">eligió</span> el camino.<br>
+      Emprende Academy 365.
+    </h1>
+    <p class="hero-sub">
+      103 voces de la UAEMéx confirman una demanda real, urgente y transversal por una plataforma que transforme ideas en proyectos validados.
+    </p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card fade-in">
+        <span class="kpi-icon">📋</span>
+        <div class="kpi-value" data-target="103">0</div>
+        <div class="kpi-label">Respuestas recopiladas de docentes, investigadores y posgrado</div>
+      </div>
+      <div class="kpi-card gold fade-in fade-in-delay-1">
+        <span class="kpi-icon">🚀</span>
+        <div class="kpi-value" data-target="68" data-suffix="%">0%</div>
+        <div class="kpi-label">Solicitaron acceso anticipado al prototipo de forma proactiva</div>
+      </div>
+      <div class="kpi-card teal fade-in fade-in-delay-2">
+        <span class="kpi-icon">✅</span>
+        <div class="kpi-value" data-target="92" data-suffix="%">0%</div>
+        <div class="kpi-label">Validación positiva de la propuesta: "Útil" o "Muy útil"</div>
+      </div>
+      <div class="kpi-card purple fade-in fade-in-delay-3">
+        <span class="kpi-icon">🏛️</span>
+        <div class="kpi-value" data-target="20" data-prefix="+">0</div>
+        <div class="kpi-label">Espacios académicos representados de forma transversal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HALLAZGOS / PERFIL -->
+<section id="hallazgos">
+  <div class="section-eyebrow">Diagnóstico</div>
+  <h2 class="section-title">Perfil de la comunidad que respondió</h2>
+  <p class="section-desc">Una muestra representativa, diversa y operativamente relevante del ecosistema universitario de la UAEMéx.</p>
+
+  <div class="charts-grid">
+    <div class="chart-card fade-in">
+      <div class="chart-title">Distribución por Perfil Institucional</div>
+      <div class="chart-sub">Roles de los 70 participantes con datos completos</div>
+      <div class="chart-wrap"><canvas id="chartPerfil"></canvas></div>
+    </div>
+    <div class="chart-card fade-in fade-in-delay-1">
+      <div class="chart-title">Área de Conocimiento</div>
+      <div class="chart-sub">Disciplines representadas en la muestra (n=70)</div>
+      <div class="chart-wrap"><canvas id="chartAreas"></canvas></div>
+    </div>
+  </div>
+
+  <br>
+  <div class="charts-grid" style="margin-top:0;">
+    <div class="chart-card fade-in">
+      <div class="chart-title">Rol de Interés en la Plataforma</div>
+      <div class="chart-sub">¿Con qué perfil desearía participar?</div>
+      <div class="chart-wrap"><canvas id="chartRol"></canvas></div>
+    </div>
+    <div class="chart-card fade-in fade-in-delay-1">
+      <div class="chart-title">Participación por Espacio Académico (Top)</div>
+      <div class="chart-sub">Más de 20 espacios distintos de la UAEMéx</div>
+      <div class="chart-wrap tall">
+        <div class="espacios-grid" style="margin-top:8px; grid-template-columns:1fr;">
+          <div class="espacio-row"><span class="espacio-rank">1</span><span class="espacio-name">Facultad de Derecho</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:100%"></div></div><span class="espacio-n">6</span></div>
+          <div class="espacio-row"><span class="espacio-rank">2</span><span class="espacio-name">CU UAEM Valle de Teotihuacán</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:100%"></div></div><span class="espacio-n">6</span></div>
+          <div class="espacio-row"><span class="espacio-rank">3</span><span class="espacio-name">Plantel Dr. Ángel Ma. Garibay K.</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:83%"></div></div><span class="espacio-n">5</span></div>
+          <div class="espacio-row"><span class="espacio-rank">4</span><span class="espacio-name">Plantel Ignacio Ramírez Calzada</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:67%"></div></div><span class="espacio-n">4</span></div>
+          <div class="espacio-row"><span class="espacio-rank">5</span><span class="espacio-name">UAP Tlalnepantla</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:50%"></div></div><span class="espacio-n">3</span></div>
+          <div class="espacio-row"><span class="espacio-rank">6</span><span class="espacio-name">CU UAEM Ecatepec</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:50%"></div></div><span class="espacio-n">3</span></div>
+          <div class="espacio-row"><span class="espacio-rank">7+</span><span class="espacio-name">Antropología, Odontología, Arq., Medicina Vet., y más…</span><div class="espacio-bar-w"><div class="espacio-bar" style="width:33%"></div></div><span class="espacio-n">2+</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote fade-in" style="margin-top:48px;">
+    Facultades de perfiles <strong>radicalmente distintos</strong> — Antropología, Odontología, Medicina Veterinaria, Arquitectura, Planeación Urbana, Artes — manifestaron interés. La propuesta <strong>trasciende disciplinas</strong> y responde a una necesidad percibida de manera generalizada.
+  </div>
+</section>
+
+<!-- VALIDACIÓN -->
+<section style="background: var(--gris-1); max-width:none; padding: 64px 48px;">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div class="section-eyebrow">Validación</div>
+    <h2 class="section-title">La propuesta supera expectativas de aceptación</h2>
+    <p class="section-desc">Tres métricas clave que evidencian demanda real y urgencia de implementación.</p>
+
+    <div class="validation-band fade-in">
+      <div class="val-item">
+        <span class="val-pct">58.6%</span>
+        <div class="val-label">La considera <strong>"Muy Útil"</strong></div>
+        <div class="val-sub">Calificación máxima en utilidad de la plataforma</div>
+      </div>
+      <div class="val-item">
+        <span class="val-pct">91.4%</span>
+        <div class="val-label">Acepta la <strong>Ruta Institucional</strong></div>
+        <div class="val-sub">"Muy relevante" (54.3%) + "Relevante" (37.1%)</div>
+      </div>
+      <div class="val-item">
+        <span class="val-pct">0%</span>
+        <div class="val-label" style="color: var(--verde);">Calificaciones <strong>negativas</strong></div>
+        <div class="val-sub">Ningún encuestado registró valoración nula o negativa</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <div class="charts-grid-3">
+        <div class="chart-card fade-in">
+          <div class="chart-title">Utilidad de la Plataforma</div>
+          <div class="chart-sub">Distribución de valoraciones (n=103)</div>
+          <div class="chart-wrap"><canvas id="chartUtilidad"></canvas></div>
+        </div>
+        <div class="chart-card fade-in fade-in-delay-1">
+          <div class="chart-title">Relevancia de la Ruta Institucional</div>
+          <div class="chart-sub">Modelo "Idea → Proyecto Validado"</div>
+          <div class="chart-wrap"><canvas id="chartRuta"></canvas></div>
+        </div>
+        <div class="chart-card fade-in fade-in-delay-2">
+          <div class="chart-title">Recursos Más Solicitados</div>
+          <div class="chart-sub">Formatos preferidos para el día a día</div>
+          <div class="chart-wrap"><canvas id="chartRecursos"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section style="max-width:1280px; margin:0 auto; padding: 96px 48px;">
+  <div class="section-eyebrow">Herramientas</div>
+  <h2 class="section-title">¿Qué espera la comunidad en la ruta?</h2>
+  <p class="section-desc">Las herramientas y contenidos que la comunidad académica prioriza para transformar ideas en proyectos reales.</p>
+
+  <div class="charts-grid">
+    <div class="chart-card fade-in">
+      <div class="chart-title">Contenidos Temáticos Prioritarios</div>
+      <div class="chart-sub">Áreas de capacitación más demandadas</div>
+      <div class="chart-wrap tall">
+        <div class="tools-list" style="margin-top: 8px;">
+          <div class="tool-row">
+            <span class="tool-icon">🎯</span>
+            <span class="tool-name">Validación con evidencia real</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:0%" data-width="92%"></div></div>
+            <span class="tool-pct">92%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-icon">🤝</span>
+            <span class="tool-name">Vinculación con cámaras empresariales</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:0%" data-width="84%"></div></div>
+            <span class="tool-pct">84%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-icon">⚡</span>
+            <span class="tool-name">Metodologías Ágiles (Design Thinking, Lean)</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:0%" data-width="78%"></div></div>
+            <span class="tool-pct">78%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-icon">🏦</span>
+            <span class="tool-name">Banco de Retos empresariales reales</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:0%" data-width="75%"></div></div>
+            <span class="tool-pct">75%</span>
+          </div>
+          <div class="tool-row">
+            <span class="tool-icon">🚀</span>
+            <span class="tool-name">Incubadoras y aceleradoras</span>
+            <div class="tool-bar-wrap"><div class="tool-bar" style="width:0%" data-width="71%"></div></div>
+            <span class="tool-pct">71%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-card fade-in fade-in-delay-1">
+      <div class="chart-title">Evidencias de Aprendizaje Preferidas</div>
+      <div class="chart-sub">¿Cómo deben documentar los equipos su avance?</div>
+      <div class="chart-wrap"><canvas id="chartEvidencias"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- BARRERAS HEATMAP -->
+<div id="barreras-section" style="background: var(--carbon); padding: 96px 48px;">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div class="section-eyebrow" style="color: var(--rojo-alerta);">
+      <span style="display:inline-block; width:24px; height:2px; background: var(--rojo-alerta); margin-right:8px;"></span>
+      Diagnóstico Crítico
+    </div>
+    <h2 class="section-title" style="color:white;">Barreras que frenan el ecosistema emprendedor universitario</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.6);">Evaluadas por la comunidad en una escala de dolor del 1 al 10. Puntuaciones de 8-10 representan obstáculos estructurales críticos.</p>
+
+    <div class="barriers-grid fade-in">
+      <div class="barrier-card critico">
+        <span class="barrier-level">⚠ Crítico</span>
+        <div class="barrier-title">Falta de Conexión Externa</div>
+        <div class="barrier-desc">Aislamiento del entorno empresarial. Aceleradoras, cámaras empresariales y aliados estratégicos desarticulados de la universidad. El ecosistema opera en una burbuja académica.</div>
+        <div class="barrier-score">
+          <div class="score-bars" id="bars1"></div>
+          <span class="score-label">9</span>
+          <span class="score-max">/10</span>
+        </div>
+      </div>
+      <div class="barrier-card critico">
+        <span class="barrier-level">⚠ Crítico</span>
+        <div class="barrier-title">Exceso de Carga Administrativa</div>
+        <div class="barrier-desc">Saturación operativa de docentes y rigideces burocráticas que consumen el tiempo real de los estudiantes. La burocracia compite con la innovación y siempre gana.</div>
+        <div class="barrier-score">
+          <div class="score-bars" id="bars2"></div>
+          <span class="score-label">9</span>
+          <span class="score-max">/10</span>
+        </div>
+      </div>
+      <div class="barrier-card alto">
+        <span class="barrier-level">⚡ Alto</span>
+        <div class="barrier-title">Nula Ejecución de Proyectos</div>
+        <div class="barrier-desc">Los proyectos permanecen en el plano teórico. Los equipos se integran por afinidad, no por complementariedad de perfiles. La idea muere antes de ser validada con usuarios reales.</div>
+        <div class="barrier-score">
+          <div class="score-bars" id="bars3"></div>
+          <span class="score-label">7.5</span>
+          <span class="score-max">/10</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <div class="chart-card" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="chart-title" style="color:white;">Mapa de Prioridad de Barreras</div>
+        <div class="chart-sub" style="color:rgba(255,255,255,0.5);">Nivel de impacto percibido por la comunidad universitaria</div>
+        <div class="chart-wrap tall"><canvas id="chartBarreras"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div id="insights-section" style="padding: 96px 48px; background: var(--gris-1);">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div class="section-eyebrow">Interpretación</div>
+    <h2 class="section-title">¿Qué nos está diciendo la comunidad universitaria?</h2>
+    <p class="section-desc">Los datos revelan señales estratégicas que van más allá de la encuesta: hay una oportunidad institucional de alto impacto esperando ser activada.</p>
+
+    <div class="insight-cards">
+      <div class="insight-card fade-in">
+        <span class="insight-tag">Señal 1 · Demanda Urgente</span>
+        <div class="insight-head">El 68% no esperó a ser invitado</div>
+        <div class="insight-body">Que más de dos tercios de los encuestados haya solicitado acceso al prototipo de forma proactiva no es un simple "me interesa" — es una señal de mercado válida. En metodología lean, este nivel de pull espontáneo equivale a demanda comprobada antes del lanzamiento.</div>
+        <div class="insight-number">68%</div>
+      </div>
+      <div class="insight-card fade-in fade-in-delay-1">
+        <span class="insight-tag">Señal 2 · Interés Transversal</span>
+        <div class="insight-head">La propuesta cruza todas las disciplinas</div>
+        <div class="insight-body">Más de 20 espacios académicos respondieron, desde Derecho hasta Medicina Veterinaria. Esto indica que el dolor que resuelve Emprende Academy 365 no es disciplinar: es estructural. Cualquier ecosistema universitario que necesite pasar de idea a proyecto validado es un usuario potencial.</div>
+        <div class="insight-number">20+</div>
+      </div>
+      <div class="insight-card fade-in fade-in-delay-2">
+        <span class="insight-tag">Señal 3 · Docentes como Activadores</span>
+        <div class="insight-head">El 42% quiere ser asesor, no solo usuario</div>
+        <div class="insight-body">La comunidad docente no quiere recibir la plataforma como una imposición — quiere co-construirla. El interés de 4 de cada 10 participantes en actuar como asesores técnicos es un activo institucional gratuito que pocas iniciativas logran detonar en fase de validación.</div>
+        <div class="insight-number">42%</div>
+      </div>
+      <div class="insight-card fade-in fade-in-delay-3">
+        <span class="insight-tag">Señal 4 · Cero Resistencia</span>
+        <div class="insight-head">Ningún encuestado dio valoración negativa</div>
+        <div class="insight-body">En contextos universitarios donde los cambios suelen generar resistencia institucional, obtener cero valoraciones negativas sobre la utilidad de la plataforma es estadísticamente notable. No hay que convencer a la comunidad — hay que darle acceso.</div>
+        <div class="insight-number">0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPORTUNIDAD INSTITUCIONAL -->
+<div id="oportunidad-section" style="background: linear-gradient(135deg, var(--verde) 0%, #004a33 100%); padding: 96px 48px;">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div class="section-eyebrow" style="color: var(--verde-menta);">
+      <span style="display:inline-block; width:24px; height:2px; background: var(--verde-menta); margin-right:8px;"></span>
+      Análisis Estratégico
+    </div>
+    <h2 class="section-title" style="color:white;">¿Por qué Emprende Academy 365 es una oportunidad institucional?</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.7);">Cinco razones respaldadas por datos para acelerar la implementación dentro de la UAEMéx.</p>
+
+    <div class="opp-grid fade-in">
+      <div class="opp-card">
+        <span class="opp-icon">📊</span>
+        <div class="opp-title">Demanda Validada</div>
+        <div class="opp-text">92% de aprobación y 68% de solicitudes de acceso anticipado. No hay duda: existe un mercado interno activo y urgente.</div>
+      </div>
+      <div class="opp-card">
+        <span class="opp-icon">🔗</span>
+        <div class="opp-title">Interés Transversal</div>
+        <div class="opp-text">Más de 20 espacios académicos de perfiles totalmente distintos. La solución no es sectorial — es institucional.</div>
+      </div>
+      <div class="opp-card">
+        <span class="opp-icon">📈</span>
+        <div class="opp-title">Escalabilidad</div>
+        <div class="opp-text">El modelo de microlearning puede desplegarse en todos los campus, facultades y centros universitarios sin límites físicos ni geográficos.</div>
+      </div>
+      <div class="opp-card">
+        <span class="opp-icon">🏭</span>
+        <div class="opp-title">Retos Reales</div>
+        <div class="opp-text">La comunidad exige un Banco de Retos empresariales y vinculación con incubadoras. La industria y la universidad pueden conectarse a través de esta plataforma.</div>
+      </div>
+      <div class="opp-card">
+        <span class="opp-icon">🌱</span>
+        <div class="opp-title">Ecosistema Emprendedor</div>
+        <div class="opp-text">Fortalece la ruta completa: ideación → validación → prototipo → MVP, integrando docentes asesores, estudiantes emprendedores y aliados externos.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <div class="chart-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);">
+        <div class="chart-title" style="color:white;">Integración Sugerida por los Docentes</div>
+        <div class="chart-sub" style="color:rgba(255,255,255,0.5);">¿Cómo incorporar la plataforma sin incrementar la carga académica?</div>
+        <div class="chart-wrap"><canvas id="chartIntegracion"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div id="roadmap-section" style="background: var(--carbon); padding: 96px 48px;">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div class="section-eyebrow" style="color: var(--verde-menta);">
+      <span style="display:inline-block; width:24px; height:2px; background: var(--verde-menta); margin-right:8px;"></span>
+      Hoja de Ruta
+    </div>
+    <h2 class="section-title" style="color:white;">De la validación al escalamiento universitario</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.6);">Una ruta en cinco etapas para convertir el interés de la comunidad en impacto institucional medible.</p>
+
+    <div class="roadmap-track fade-in">
+      <div class="roadmap-connector"></div>
+
+      <div class="roadmap-step active">
+        <div class="roadmap-dot">📍</div>
+        <div>
+          <div class="roadmap-phase">Etapa 1</div>
+          <div class="roadmap-title">Situación Actual</div>
+          <div class="roadmap-desc">103 respuestas validadas. 68% con acceso solicitado. Plataforma funcional más allá del prototipo. 10 usuarios piloto activos (responsables de Unidades de Emprendimiento).</div>
+          <span class="roadmap-tag tag-now">Hoy</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-dot">🧪</div>
+        <div>
+          <div class="roadmap-phase">Etapa 2</div>
+          <div class="roadmap-title">Versión Beta Ampliada</div>
+          <div class="roadmap-desc">Apertura a los 70 usuarios que solicitaron acceso. Iteración de módulos, plantillas y formatos. Retroalimentación estructurada de docentes y posgrado.</div>
+          <span class="roadmap-tag tag-q3">Q1 2026</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-dot">🏫</div>
+        <div>
+          <div class="roadmap-phase">Etapa 3</div>
+          <div class="roadmap-title">Piloto Institucional</div>
+          <div class="roadmap-desc">Incorporación como Proyecto Final de Asignatura en las facultades de mayor demanda. Capacitación técnica para docentes. Calendario semestral definido y libre de burocracia.</div>
+          <span class="roadmap-tag tag-q4">Q2 2026</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-dot">🔗</div>
+        <div>
+          <div class="roadmap-phase">Etapa 4</div>
+          <div class="roadmap-title">Integración Emprende UAEMéx 365</div>
+          <div class="roadmap-desc">Activación del Banco de Retos con aliados empresariales. Vinculación con incubadoras y aceleradoras. Comunidades de práctica activa entre asesores y emprendedores.</div>
+          <span class="roadmap-tag tag-2026">2do Semestre 2026</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-dot">🚀</div>
+        <div>
+          <div class="roadmap-phase">Etapa 5</div>
+          <div class="roadmap-title">Escalamiento Universitario</div>
+          <div class="roadmap-desc">Despliegue a todos los espacios académicos. Integración con el ecosistema de innovación de la UAEMéx. Generación de startups con impacto real y medible.</div>
+          <span class="roadmap-tag tag-2026">2027 →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote" style="background: rgba(0,184,122,0.06); border-color: rgba(0,184,122,0.3);">
+      El corazón del programa no es la plataforma — es la <strong>capacitación y el acompañamiento constante</strong> para la validación de ideas y soluciones en entornos reales. <strong>Emprende Academy 365 es la herramienta que hace posible ese acompañamiento a escala universitaria.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Emprende Academy 365 · Emprende UAEMéx 365</div>
+  <div class="footer-sub" style="margin-top:8px;">Dirección de Desarrollo Empresarial · Universidad Autónoma del Estado de México</div>
+  <div class="footer-sub" style="margin-top:4px;">Reporte Ejecutivo de Encuesta de Validación · Junio 2026</div>
+  <div style="margin-top: 32px; display: flex; justify-content: center; gap: 24px;">
+    <div style="background:rgba(0,103,71,0.15); border:1px solid rgba(0,103,71,0.3); border-radius:12px; padding:16px 32px; text-align:center;">
+      <div style="color:var(--verde-menta); font-size:24px; font-weight:800; font-family:'Space Grotesk',sans-serif;">103</div>
+      <div style="color:rgba(255,255,255,0.5); font-size:12px; margin-top:4px;">Respuestas totales</div>
+    </div>
+    <div style="background:rgba(200,149,42,0.1); border:1px solid rgba(200,149,42,0.3); border-radius:12px; padding:16px 32px; text-align:center;">
+      <div style="color:var(--dorado-claro); font-size:24px; font-weight:800; font-family:'Space Grotesk',sans-serif;">92%</div>
+      <div style="color:rgba(255,255,255,0.5); font-size:12px; margin-top:4px;">Validación positiva</div>
+    </div>
+    <div style="background:rgba(0,135,90,0.1); border:1px solid rgba(0,135,90,0.3); border-radius:12px; padding:16px 32px; text-align:center;">
+      <div style="color:#4dd9a0; font-size:24px; font-weight:800; font-family:'Space Grotesk',sans-serif;">20+</div>
+      <div style="color:rgba(255,255,255,0.5); font-size:12px; margin-top:4px;">Espacios académicos</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  let start = 0; const duration = 1800;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = prefix + Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.kpi-value[data-target]').forEach(el => counterObs.observe(el));
+
+// ── TOOL BARS ANIMATION ──
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.tool-bar[data-width]').forEach(b => {
+        setTimeout(() => { b.style.width = b.dataset.width; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.tools-list').forEach(el => barObs.observe(el));
+
+// ── BARRIER BARS ──
+function buildBars(id, filled, total, colorClass) {
+  const wrap = document.getElementById(id);
+  if (!wrap) return;
+  for (let i = 1; i <= total; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'score-bar' + (i <= filled ? (' ' + colorClass) : '');
+    wrap.appendChild(bar);
+  }
+}
+buildBars('bars1', 9, 10, 'filled-red');
+buildBars('bars2', 9, 10, 'filled-red');
+buildBars('bars3', 8, 10, 'filled-orange');
+
+// ── COLOR PALETTE ──
+const verde = '#006747'; const verdeClaro = '#00875a'; const verdeMenta = '#00b87a';
+const dorado = '#c8952a'; const doradoClaro = '#f0b429';
+const carbon = '#0f1923'; const gris2 = '#e8ecf1';
+const azul = '#0ea5e9'; const morado = '#7c3aed';
+
+Chart.defaults.font.family = 'Inter';
+Chart.defaults.color = '#5a6a7a';
+
+// ── CHART 1: PERFIL ──
+new Chart(document.getElementById('chartPerfil'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Docente técnico / Asignatura aplicada','Estudiante de posgrado','Directivo(a) institucional','Investigador(a)','Bachillerato','Prof. Tiempo Completo','Otros'],
+    datasets: [{
+      data: [40, 27.1, 14.3, 10, 4.3, 1.4, 2.9],
+      backgroundColor: [verde, verdeMenta, dorado, azul, morado, '#e07b39', '#6b7a8a'],
+      borderWidth: 0, hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'right', labels: { boxWidth: 12, padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+    }
+  }
+});
+
+// ── CHART 2: ÁREAS ──
+new Chart(document.getElementById('chartAreas'), {
+  type: 'bar',
+  data: {
+    labels: ['Cs. Sociales y\nHumanidades','Cs. Económico-\nAdministrativas','Ingeniería / TI','Cs. de la Salud','Diseño / Arq.','Educación','Otras'],
+    datasets: [{
+      data: [44.3, 18.6, 12.9, 5.7, 5.7, 5.7, 7.1],
+      backgroundColor: [verde, verdeClaro, verdeMenta, dorado, doradoClaro, azul, '#6b7a8a'],
+      borderRadius: 8, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x}%` } }
+    },
+    scales: {
+      x: { grid: { color: gris2 }, ticks: { callback: v => v + '%' }, max: 50 },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// ── CHART 3: ROL EN PLATAFORMA ──
+new Chart(document.getElementById('chartRol'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Asesor técnico de equipos','Estudiante / Emprendedor','Ambos roles','Observador / Apoyo'],
+    datasets: [{
+      data: [42, 30.4, 18.6, 9],
+      backgroundColor: [verde, dorado, verdeMenta, azul],
+      borderWidth: 0, hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14, font: { size: 11 } } }
+    }
+  }
+});
+
+// ── CHART UTILIDAD ──
+new Chart(document.getElementById('chartUtilidad'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Muy útil (58.6%)', 'Útil (34.3%)', 'Neutral (7.1%)'],
+    datasets: [{
+      data: [58.6, 34.3, 7.1],
+      backgroundColor: [verde, verdeMenta, '#c8d0da'],
+      borderWidth: 0, hoverOffset: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '58%',
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+  }
+});
+
+// ── CHART RUTA ──
+new Chart(document.getElementById('chartRuta'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Muy relevante (54.3%)', 'Relevante (37.1%)', 'Neutral (8.6%)'],
+    datasets: [{
+      data: [54.3, 37.1, 8.6],
+      backgroundColor: [dorado, doradoClaro, '#c8d0da'],
+      borderWidth: 0, hoverOffset: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '58%',
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+  }
+});
+
+// ── CHART RECURSOS ──
+new Chart(document.getElementById('chartRecursos'), {
+  type: 'bar',
+  data: {
+    labels: ['Guías metodológicas','Simuladores / Gamificación','Comunidades de práctica','Cápsulas de video (15-20 min)','Plantillas descargables'],
+    datasets: [{
+      data: [88, 82, 76, 74, 70],
+      backgroundColor: [verde, verdeClaro, verdeMenta, '#4dd9a0', '#a7f3d0'],
+      borderRadius: 8, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x}%` } } },
+    scales: {
+      x: { grid: { color: gris2 }, ticks: { callback: v => v + '%' }, max: 100 },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── CHART BARRERAS (radar) ──
+new Chart(document.getElementById('chartBarreras'), {
+  type: 'radar',
+  data: {
+    labels: ['Falta de conexión\nexterna','Exceso carga\nadministrativa','Nula ejecución\nde proyectos','Falta de perfiles\ncomplementarios','Rigidez\ncurricular','Ausencia de\nmentores reales'],
+    datasets: [{
+      label: 'Nivel de Impacto (1-10)',
+      data: [9, 9, 7.5, 7, 6.5, 6],
+      backgroundColor: 'rgba(214,59,59,0.15)',
+      borderColor: '#d63b3b',
+      pointBackgroundColor: '#d63b3b',
+      pointBorderColor: 'white',
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        beginAtZero: true, max: 10,
+        grid: { color: 'rgba(255,255,255,0.08)' },
+        angleLines: { color: 'rgba(255,255,255,0.08)' },
+        pointLabels: { color: 'rgba(255,255,255,0.7)', font: { size: 11 } },
+        ticks: { color: 'rgba(255,255,255,0.3)', backdropColor: 'transparent', stepSize: 2 }
+      }
+    }
+  }
+});
+
+// ── CHART EVIDENCIAS ──
+new Chart(document.getElementById('chartEvidencias'), {
+  type: 'bar',
+  data: {
+    labels: ['Prototipo de baja fidelidad','Entrevistas de validación con usuarios','Canvas de modelo de negocio','Video pitch breve','Plan de negocio tradicional'],
+    datasets: [{
+      data: [38.2, 35.3, 14.7, 8.8, 3],
+      backgroundColor: [verde, verdeMenta, dorado, azul, '#c8d0da'],
+      borderRadius: 8, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x}%` } } },
+    scales: {
+      x: { grid: { color: gris2 }, ticks: { callback: v => v + '%' }, max: 45 },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// ── CHART INTEGRACIÓN ──
+new Chart(document.getElementById('chartIntegracion'), {
+  type: 'bar',
+  data: {
+    labels: ['Proyecto Final de Asignatura\n(integración orgánica)','Módulo optativo\ncomplementario','Actividad extracurricular\nvoluntaria','Práctica profesional\nsupervisada'],
+    datasets: [{
+      data: [33.3, 28.5, 24.2, 14],
+      backgroundColor: ['rgba(0,184,122,0.8)','rgba(0,184,122,0.55)','rgba(0,184,122,0.35)','rgba(0,184,122,0.2)'],
+      borderRadius: 10, borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y}% de los docentes` } } },
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: 'rgba(255,255,255,0.5)', callback: v => v + '%' } },
+      x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.6)', font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
