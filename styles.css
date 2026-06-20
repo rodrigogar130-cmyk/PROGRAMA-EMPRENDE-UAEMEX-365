@@ -445,7 +445,12 @@
     .role-table tr:hover td{background:rgba(94,23,235,.05)}
 
     /* ── TOOLS ── */
-    .tool-featured{background:linear-gradient(135deg,var(--d3),var(--d4));border:1px solid rgba(30,255,255,.2);border-radius:20px;padding:2.5rem;margin-bottom:2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .tool-featured{width:min(100%,1100px);max-width:100%;min-width:0;margin:0 auto 2rem;background:linear-gradient(135deg,var(--d3),var(--d4));border:1px solid rgba(30,255,255,.2);border-radius:20px;padding:2.5rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3rem;align-items:center;overflow:hidden}
+    .tool-featured>*{min-width:0;max-width:100%;box-sizing:border-box}
+    .academy-title{font-size:clamp(1.65rem,3vw,2rem);overflow-wrap:anywhere}
+    .academy-copy,.academy-audience{width:100%;max-width:100%;min-width:0}
+    .academy-audience-grid{gap:1rem;margin-top:.8rem;width:100%;max-width:100%}
+    .academy-audience-grid .card{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
 
     /* ── EVENTS ── */
     .events-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:2rem;align-items:stretch;width:100%}
@@ -485,17 +490,23 @@
 }
 
 .logo-icon{
-    width:300px;
-    height:100px;
+    width:min(300px,100%);
+    max-width:100%;
+    height:auto;
+    max-height:100px;
     object-fit:contain;
     vertical-align:middle;
+    display:block;
 }
 
 .logo-link{
+    display:block;
+    max-width:100%;
+    min-width:0;
     text-decoration:none;
 }
 
-    .tool-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(30,255,255,.08);border:1px solid rgba(30,255,255,.25);border-radius:999px;padding:.3rem .9rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem
+    .tool-badge{display:inline-flex;max-width:100%;min-width:0;align-items:center;gap:.5rem;background:rgba(30,255,255,.08);border:1px solid rgba(30,255,255,.25);border-radius:999px;padding:.3rem .9rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;box-sizing:border-box
     }
     .beta-tag{background:rgba(226, 218, 226, 0.1);border:1px solid rgba(255,3,255,.3);color:var(--mag);padding:.15rem .5rem;border-radius:4px;font-size:.65rem;letter-spacing:.08em;margin-left:.5rem}
     .feature-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:1.2rem}
@@ -556,6 +567,9 @@
         .comparison-intro{grid-template-columns:1fr;gap:1rem}
         .comparison-intro>p{justify-self:start}
         .grid-2,.grid-3,.grid-4,.act-grid,.ba-grid,.tool-featured,.manual-grid,.events-grid,.event-card-featured{grid-template-columns:1fr}
+        .tool-featured{width:100%;max-width:100%;padding:24px 18px;gap:1.75rem}
+        .academy-audience-grid{grid-template-columns:1fr}
+        .academy-audience-grid .card{width:100%;padding:1rem!important}
         .stats-bar{grid-template-columns:1fr 1fr}
         .event-visual{padding:0 1rem}
         .event-content{padding:1.5rem 1rem 1rem}
@@ -585,4 +599,12 @@
         .stat{text-align:center}
         .home-comparison{padding:1.25rem 1rem;border-radius:20px}
         .ba-card{padding:1.25rem 1rem}
+        .academy-badge{width:100%;flex-direction:column;align-items:center;justify-content:center;gap:.45rem;border-radius:14px;padding:.7rem}
+        .academy-badge .logo-link{width:100%}
+        .academy-badge .logo-icon{width:min(240px,100%);margin-inline:auto}
+        .academy-badge .beta-tag{margin-left:0}
+        .academy-title{font-size:clamp(1.45rem,8vw,1.85rem)}
+        .academy-copy p{font-size:.9rem;line-height:1.7!important;overflow-wrap:anywhere}
+        .feature-list{margin-top:1rem}
+        .feature-list li{min-width:0;overflow-wrap:anywhere}
     }
