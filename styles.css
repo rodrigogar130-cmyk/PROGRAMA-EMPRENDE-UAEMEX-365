@@ -237,9 +237,6 @@
     .road-body{flex:1;background:var(--d2);border:1px solid rgba(94,23,235,.22);border-radius:14px;padding:1.5rem;margin-top:.3rem}
     .road-title{font-family:'Space Mono',monospace;font-size:1rem;color:var(--cyan);margin-bottom:.4rem}
     .road-desc{font-size:.85rem;color:var(--gray);line-height:1.6}
-    .road-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
-    .tool-chip{background:rgba(30,255,255,.08);border:1px solid rgba(30,255,255,.2);border-radius:6px;padding:.2rem .6rem;font-size:.72rem;color:var(--cyan)}
-
     /* ── ACTIVITY CARDS ── */
         .act-grid{
         display:grid;
