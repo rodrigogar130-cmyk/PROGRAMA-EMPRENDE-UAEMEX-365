@@ -12,7 +12,7 @@
 <body>
 
 <!-- HAMBURGER -->
-<button class="hamburger" id="ham" aria-label="Menú">
+<button class="hamburger" id="ham" type="button" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
   <span></span><span></span><span></span>
 </button>
 
@@ -21,6 +21,7 @@
   <div class="sidebar-head">
     <img src="imgenes/Logo04.png" alt="UAEMéx"/>
     <div class="sidebar-brand">EMPRENDE<br>UAEMéx 365</div>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Cerrar menú">Cerrar menú</button>
   </div>
   <div class="sidebar-nav">
     <div class="nav-section">Principal</div>
@@ -45,6 +46,7 @@
     <span style="color:var(--p2)">UAEMéx · 2026</span>
   </div>
 </nav>
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
 <!-- MAIN -->
 <main class="main">
@@ -556,10 +558,14 @@
 
 
 <!-- ══════════════ Lector PDF ══════════════ -->
-  <div id="pdfModal" class="pdf-modal">
+  <div id="pdfModal" class="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Visor de PDF">
     <div class="pdf-content">
         <button class="cerrar-modal" type="button" onclick="cerrarPDF()" aria-label="Cerrar lector PDF">Cerrar</button>
-        <iframe id="pdfViewer" src=""></iframe>
+        <iframe id="pdfViewer" src="" title="Documento PDF"></iframe>
+        <div class="pdf-mobile-actions">
+          <p>Para navegar cómodamente por todas las páginas, abre el documento en el visor de tu navegador.</p>
+          <a id="pdfMobileLink" class="btn btn-p pdf-mobile-link" href="#" target="_blank" rel="noopener noreferrer">Ver PDF completo</a>
+        </div>
     </div>
 </div>
 

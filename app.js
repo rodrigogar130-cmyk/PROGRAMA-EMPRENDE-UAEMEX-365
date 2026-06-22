@@ -6,6 +6,19 @@
 // ── NAVIGATION ──
   const navItems = document.querySelectorAll('.nav-item[data-section], .btn[data-section]');
   const sections = document.querySelectorAll('.section');
+  const sidebar = document.getElementById('sidebar');
+  const hamburger = document.getElementById('ham');
+  const sidebarClose = document.getElementById('sidebarClose');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  function setMobileMenu(open) {
+    sidebar.classList.toggle('open', open);
+    sidebarOverlay.classList.toggle('active', open);
+    sidebarOverlay.setAttribute('aria-hidden', String(!open));
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    document.body.classList.toggle('sidebar-open', open);
+  }
 
   function goTo(id) {
     sections.forEach(s => s.classList.remove('active'));
@@ -15,7 +28,7 @@
       n.classList.toggle('active', n.dataset.section === id);
     });
     if (window.innerWidth <= 900) {
-      document.getElementById('sidebar').classList.remove('open');
+      setMobileMenu(false);
     }
     // Re-trigger reveals for new section
     setTimeout(() => {
@@ -34,8 +47,14 @@
   });
 
   // ── HAMBURGER ──
-  document.getElementById('ham').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
+  hamburger.addEventListener('click', () => {
+    setMobileMenu(!sidebar.classList.contains('open'));
+  });
+  sidebarClose.addEventListener('click', () => setMobileMenu(false));
+  sidebarOverlay.addEventListener('click', () => setMobileMenu(false));
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && sidebar.classList.contains('open')) setMobileMenu(false);
   });
 
   // ── MANUAL TABS ──
@@ -99,14 +118,32 @@ document.addEventListener('keydown', event => {
 
 // accion abrir y cerrar PDf
 function abrirPDF(rutaPDF) {
+    const pdfModal = document.getElementById('pdfModal');
     document.getElementById('pdfViewer').src = rutaPDF;
-    document.getElementById('pdfModal').style.display = 'block';
+    document.getElementById('pdfMobileLink').href = rutaPDF;
+    pdfModal.style.display = 'flex';
+    pdfModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
 }
 
 function cerrarPDF() {
-    document.getElementById('pdfModal').style.display = 'none';
+    const pdfModal = document.getElementById('pdfModal');
+    pdfModal.style.display = 'none';
+    pdfModal.setAttribute('aria-hidden', 'true');
     document.getElementById('pdfViewer').src = '';
+    document.getElementById('pdfMobileLink').href = '#';
+    document.body.classList.remove('modal-open');
 }
+
+document.getElementById('pdfModal')?.addEventListener('click', event => {
+  if (event.target.id === 'pdfModal') cerrarPDF();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  if (sidebar.classList.contains('open')) setMobileMenu(false);
+  if (document.getElementById('pdfModal')?.style.display === 'flex') cerrarPDF();
+});
 // accion abrir y cerrar video
 function abrirVideo(url) {
   const modal = document.getElementById("videoModal");
