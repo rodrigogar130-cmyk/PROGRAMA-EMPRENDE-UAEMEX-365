@@ -488,10 +488,62 @@
   }
 
   @media (max-width: 640px) {
-    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kpi-grid { grid-template-columns: 1fr; gap: 12px; }
     .kpi-value { font-size: 32px; }
     .charts-grid-3 { grid-template-columns: 1fr; }
-    .opp-grid { grid-template-columns: 1fr 1fr; }
+    .opp-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── RESPONSIVE SAFETY ── */
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  body * { min-width: 0; }
+  section, .full-section, .full-section .inner, .hero-content,
+  .kpi-card, .chart-card, .barrier-card, .insight-card,
+  .opp-card, .validation-band, .val-item, .roadmap-step,
+  .tool-row, .espacio-row, .pull-quote {
+    max-width: 100%;
+    height: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  img, iframe, svg, table { max-width: 100%; }
+  table { display: block; width: 100%; overflow-x: auto; }
+  .chart-wrap { width: 100%; max-width: 100%; overflow: hidden; }
+  canvas { display: block; max-width: 100% !important; }
+  .charts-grid > *, .charts-grid-3 > *, .kpi-grid > *, .barriers-grid > *,
+  .insight-cards > *, .opp-grid > *, .validation-band > *, .espacios-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding-inline: 16px; gap: 10px; }
+    .nav-brand { min-width: 0; }
+    .nav-title { font-size: 12px; }
+    .nav-title, .nav-sub { overflow-wrap: anywhere; }
+    .nav-badge { flex-shrink: 0; padding-inline: 10px; }
+    #hero { min-height: auto; padding: 104px 16px 48px !important; }
+    section, .full-section .inner { padding: 56px 16px; }
+    .kpi-grid, .charts-grid, .charts-grid-3, .barriers-grid,
+    .insight-cards, .opp-grid, .validation-band, .espacios-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .kpi-card, .chart-card, .barrier-card, .insight-card, .opp-card { padding: 20px; }
+    .chart-card.wide { grid-column: auto; }
+    .chart-wrap, .chart-wrap.tall { height: 260px; }
+    .tool-row, .barrier-score { flex-wrap: wrap; }
+    .tool-bar-wrap { flex: 1 0 100%; }
+    .pull-quote { padding: 24px 20px; margin-block: 32px; }
+    .roadmap-step { width: 100%; }
+    footer { padding: 36px 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-badge { display: none; }
   }
 </style>
 </head>
