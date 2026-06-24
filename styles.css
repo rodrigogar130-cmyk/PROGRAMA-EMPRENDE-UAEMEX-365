@@ -814,10 +814,11 @@
 
 /* ── TEMA INSTITUCIONAL UAEMÉX ── */
 html[data-theme="institucional"]{
-    --uaemex-green:#2f4f2f;
+    --uaemex-green:#2f5d46;
     --uaemex-deep-green:#173b2f;
     --uaemex-gold:#c9a13b;
     --uaemex-light-gold:#e6d39a;
+    --uaemex-gold-soft:#e8d9a8;
     --uaemex-white:#ffffff;
     --uaemex-cream:#f7f4ea;
     --uaemex-text:#1f2a24;
@@ -852,16 +853,27 @@ html[data-theme="institucional"] .hamburger span{background:var(--uaemex-deep-gr
 html[data-theme="institucional"] .sidebar-close{border-color:rgba(47,79,47,.28);background:rgba(47,79,47,.06);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .grad-cyan,html[data-theme="institucional"] .grad-mag,html[data-theme="institucional"] .grad-pink{background:linear-gradient(135deg,var(--uaemex-deep-green),var(--uaemex-gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 html[data-theme="institucional"] .divider{background:linear-gradient(90deg,var(--uaemex-green),var(--uaemex-gold),transparent)}
-html[data-theme="institucional"] .tag,html[data-theme="institucional"] .badge,html[data-theme="institucional"] .hero-badge{border-color:rgba(47,79,47,.25);background:rgba(47,79,47,.07);color:var(--uaemex-green)}
-html[data-theme="institucional"] .tag-mag{border-color:rgba(201,161,59,.35);background:rgba(201,161,59,.1);color:#8b6b16}
-html[data-theme="institucional"] .btn-p{background:linear-gradient(135deg,var(--uaemex-deep-green),var(--uaemex-green));color:#fff;box-shadow:0 10px 25px rgba(23,59,47,.16)}
-html[data-theme="institucional"] .btn-o{border-color:rgba(47,79,47,.28);background:rgba(255,255,255,.65);color:var(--uaemex-deep-green)}
-html[data-theme="institucional"] .btn:hover{box-shadow:0 13px 28px rgba(23,59,47,.2)}
-html[data-theme="institucional"] .card,html[data-theme="institucional"] .tool-featured,html[data-theme="institucional"] .event-card,html[data-theme="institucional"] .academy-card,html[data-theme="institucional"] .road-body,html[data-theme="institucional"] .theme-option{border-color:rgba(47,79,47,.18);background:rgba(255,255,255,.88);box-shadow:0 18px 45px rgba(23,59,47,.08)}
+html[data-theme="institucional"] .tag,html[data-theme="institucional"] .badge,html[data-theme="institucional"] .hero-badge{border:1px solid var(--uaemex-gold);background:var(--uaemex-green);color:#fff;box-shadow:0 6px 16px rgba(23,59,47,.1)}
+html[data-theme="institucional"] .hero-badge .dot{background:var(--uaemex-gold);box-shadow:0 0 10px rgba(201,161,59,.55)}
+html[data-theme="institucional"] .tag-mag{border-color:rgba(201,161,59,.62);background:rgba(232,217,168,.58);color:var(--uaemex-deep-green);box-shadow:none}
+html[data-theme="institucional"] .btn-p{background:linear-gradient(135deg,#b7861e,#d1a53c);border-color:#a97918;color:var(--uaemex-deep-green);box-shadow:0 10px 25px rgba(139,101,20,.24),inset 0 1px rgba(255,255,255,.3)}
+html[data-theme="institucional"] .btn-p:hover{background:linear-gradient(135deg,#c49322,#dfb64d);box-shadow:0 14px 30px rgba(139,101,20,.3)}
+html[data-theme="institucional"] .btn-o{border-color:rgba(183,134,30,.72);background:rgba(201,161,59,.15);color:#725410;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
+html[data-theme="institucional"] .btn-o:hover{border-color:#b7861e;background:rgba(201,161,59,.27);color:var(--uaemex-deep-green);box-shadow:0 12px 26px rgba(139,101,20,.18)}
+html[data-theme="institucional"] .btn:focus-visible{outline:3px solid rgba(183,134,30,.38);outline-offset:3px}
+html[data-theme="institucional"] .card,html[data-theme="institucional"] .tool-featured,html[data-theme="institucional"] .event-card,html[data-theme="institucional"] .academy-card,html[data-theme="institucional"] .road-body,html[data-theme="institucional"] .theme-option{border-color:rgba(47,93,70,.28);background:rgba(255,255,255,.88);box-shadow:0 18px 45px rgba(23,59,47,.08)}
 html[data-theme="institucional"] .card:hover,html[data-theme="institucional"] .theme-option:hover{border-color:rgba(201,161,59,.7);box-shadow:0 20px 48px rgba(23,59,47,.12)}
 html[data-theme="institucional"] .theme-option.is-active{border-color:var(--uaemex-gold);box-shadow:0 0 0 1px var(--uaemex-gold),0 20px 50px rgba(23,59,47,.12)}
 html[data-theme="institucional"] .theme-status{border-color:rgba(47,79,47,.28);background:rgba(47,79,47,.07);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .theme-active-badge{background:var(--uaemex-gold);color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .fm-badges span{border:1px solid var(--uaemex-gold);background:var(--uaemex-green);color:#fff;box-shadow:0 7px 16px rgba(23,59,47,.12)}
+html[data-theme="institucional"] .fm-pulse i{background:var(--uaemex-gold);box-shadow:0 0 13px rgba(201,161,59,.58)}
+html[data-theme="institucional"] .t-pill{border-color:rgba(201,161,59,.62);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .t-pill .arrow{color:#9b7418}
+html[data-theme="institucional"] .tool-badge,html[data-theme="institucional"] .ind-chip,html[data-theme="institucional"] .event-date{border-color:rgba(201,161,59,.58);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .route-step,html[data-theme="institucional"] .area-icon{border-color:rgba(201,161,59,.58);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .area-label,html[data-theme="institucional"] .road-title,html[data-theme="institucional"] .act-label{color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .card-cyan{border-color:rgba(47,93,70,.35)}
 html[data-theme="institucional"] .g1,html[data-theme="institucional"] .g2,html[data-theme="institucional"] .g3{opacity:.28;filter:blur(110px)}
 html[data-theme="institucional"] .g1{background:radial-gradient(circle,rgba(47,79,47,.24),transparent 70%)}
 html[data-theme="institucional"] .g2{background:radial-gradient(circle,rgba(201,161,59,.22),transparent 70%)}
@@ -904,7 +916,8 @@ html[data-theme="institucional"] .ba-list li{border-bottom-color:rgba(47,79,47,.
 html[data-theme="institucional"] .route-card{background:linear-gradient(155deg,rgba(255,255,255,.97),rgba(239,242,233,.94));border-color:rgba(47,79,47,.18);box-shadow:0 18px 42px rgba(23,59,47,.08)}
 html[data-theme="institucional"] .route-input,html[data-theme="institucional"] .route-output{background:rgba(47,79,47,.055);border-color:rgba(47,79,47,.15)}
 html[data-theme="institucional"] .route-output{background:rgba(201,161,59,.09);border-color:rgba(201,161,59,.22)}
-html[data-theme="institucional"] .home-area-btn{background:rgba(255,255,255,.88);border-color:rgba(47,79,47,.2);color:var(--uaemex-deep-green);box-shadow:0 8px 20px rgba(23,59,47,.06)}
+html[data-theme="institucional"] .home-area-btn{background:linear-gradient(135deg,rgba(201,161,59,.22),rgba(230,211,154,.42));border-color:rgba(183,134,30,.6);color:var(--uaemex-deep-green);box-shadow:0 8px 20px rgba(139,101,20,.1)}
+html[data-theme="institucional"] .home-area-btn:hover{background:linear-gradient(135deg,rgba(201,161,59,.34),rgba(230,211,154,.58));border-color:#b7861e}
 html[data-theme="institucional"] .challenge-card,html[data-theme="institucional"] .flow-source-group span{background:rgba(255,255,255,.82);border-color:rgba(47,79,47,.16)}
 html[data-theme="institucional"] .challenge-question,html[data-theme="institucional"] .problem-conclusion,html[data-theme="institucional"] .flow-value{background:rgba(47,79,47,.07);border-color:rgba(47,79,47,.18)}
 html[data-theme="institucional"] .flow-result,html[data-theme="institucional"] .institutional-risk{background:rgba(201,161,59,.08);border-color:rgba(201,161,59,.22)}
