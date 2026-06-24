@@ -853,9 +853,9 @@ html[data-theme="institucional"] .hamburger span{background:var(--uaemex-deep-gr
 html[data-theme="institucional"] .sidebar-close{border-color:rgba(47,79,47,.28);background:rgba(47,79,47,.06);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .grad-cyan,html[data-theme="institucional"] .grad-mag,html[data-theme="institucional"] .grad-pink{background:linear-gradient(135deg,var(--uaemex-deep-green),var(--uaemex-gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 html[data-theme="institucional"] .divider{background:linear-gradient(90deg,var(--uaemex-green),var(--uaemex-gold),transparent)}
-html[data-theme="institucional"] .tag,html[data-theme="institucional"] .badge,html[data-theme="institucional"] .hero-badge{border:1px solid var(--uaemex-gold);background:var(--uaemex-green);color:#fff;box-shadow:0 6px 16px rgba(23,59,47,.1)}
+html[data-theme="institucional"] .tag,html[data-theme="institucional"] .badge,html[data-theme="institucional"] .hero-badge{border:0;background:transparent;color:#1f4d3a;box-shadow:none}
 html[data-theme="institucional"] .hero-badge .dot{background:var(--uaemex-gold);box-shadow:0 0 10px rgba(201,161,59,.55)}
-html[data-theme="institucional"] .tag-mag{border-color:rgba(201,161,59,.62);background:rgba(232,217,168,.58);color:var(--uaemex-deep-green);box-shadow:none}
+html[data-theme="institucional"] .tag-mag{border:0;background:transparent;color:#b9922f;box-shadow:none}
 html[data-theme="institucional"] .btn-p{background:linear-gradient(135deg,#b7861e,#d1a53c);border-color:#a97918;color:var(--uaemex-deep-green);box-shadow:0 10px 25px rgba(139,101,20,.24),inset 0 1px rgba(255,255,255,.3)}
 html[data-theme="institucional"] .btn-p:hover{background:linear-gradient(135deg,#c49322,#dfb64d);box-shadow:0 14px 30px rgba(139,101,20,.3)}
 html[data-theme="institucional"] .btn-o{border-color:rgba(183,134,30,.72);background:rgba(201,161,59,.15);color:#725410;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
@@ -874,6 +874,64 @@ html[data-theme="institucional"] .tool-badge,html[data-theme="institucional"] .i
 html[data-theme="institucional"] .route-step,html[data-theme="institucional"] .area-icon{border-color:rgba(201,161,59,.58);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .area-label,html[data-theme="institucional"] .road-title,html[data-theme="institucional"] .act-label{color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .card-cyan{border-color:rgba(47,93,70,.35)}
+/* Etiquetas superiores limpias: sin cápsulas ni fondos sólidos */
+html[data-theme="institucional"] .tag,
+html[data-theme="institucional"] .badge,
+html[data-theme="institucional"] .hero-badge,
+html[data-theme="institucional"] .area-label,
+html[data-theme="institucional"] .route-level,
+html[data-theme="institucional"] .risk-label,
+html[data-theme="institucional"] .fm-page-head>span,
+html[data-theme="institucional"] .fm-section-head>span,
+html[data-theme="institucional"] .fm-hero-highlight small,
+html[data-theme="institucional"] .fm-conclusion>span,
+html[data-theme="institucional"] .fm-callout>span,
+html[data-theme="institucional"] .fm-card-grid b,
+html[data-theme="institucional"] .fm-method-grid b,
+html[data-theme="institucional"] .fm-competencies small,
+html[data-theme="institucional"] .fm-activity-grid>article>span,
+html[data-theme="institucional"] .fm-evidence small{
+    display:block;
+    width:fit-content;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:#1f4d3a;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+}
+html[data-theme="institucional"] .tag-mag,
+html[data-theme="institucional"] .risk-label,
+html[data-theme="institucional"] .fm-hero-highlight small,
+html[data-theme="institucional"] .fm-conclusion>span,
+html[data-theme="institucional"] .fm-callout.fm-gold>span,
+html[data-theme="institucional"] .fm-card-grid b,
+html[data-theme="institucional"] .fm-method-grid b,
+html[data-theme="institucional"] .fm-competencies small,
+html[data-theme="institucional"] .fm-activity-grid>article>span,
+html[data-theme="institucional"] .fm-evidence small{color:#9a741d}
+/* Contraste de textos y bloques informativos sobre superficies claras */
+html[data-theme="institucional"] .fm-callout p,
+html[data-theme="institucional"] .fm-intro,
+html[data-theme="institucional"] .fm-card-grid p,
+html[data-theme="institucional"] .fm-session>p,
+html[data-theme="institucional"] .fm-activity-grid p,
+html[data-theme="institucional"] .fm-selection p,
+html[data-theme="institucional"] .fm-table-wrap td,
+html[data-theme="institucional"] .fm-evidence li,
+html[data-theme="institucional"] .fm-benefits span,
+html[data-theme="institucional"] .route-purpose,
+html[data-theme="institucional"] .route-evidence,
+html[data-theme="institucional"] .area-highlight span,
+html[data-theme="institucional"] .card-desc,
+html[data-theme="institucional"] .road-desc,
+html[data-theme="institucional"] .flow-desc{color:#41584d}
+html[data-theme="institucional"] .fm-callout{border-color:rgba(47,107,79,.28);border-left-color:#2f6b4f;background:rgba(47,107,79,.07)}
+html[data-theme="institucional"] .fm-callout.fm-gold{border-color:rgba(185,146,47,.36);border-left-color:#b9922f;background:rgba(185,146,47,.08)}
+html[data-theme="institucional"] .event-image-trigger span{border-color:rgba(185,146,47,.6);background:rgba(23,59,47,.92);color:#fff}
 html[data-theme="institucional"] .g1,html[data-theme="institucional"] .g2,html[data-theme="institucional"] .g3{opacity:.28;filter:blur(110px)}
 html[data-theme="institucional"] .g1{background:radial-gradient(circle,rgba(47,79,47,.24),transparent 70%)}
 html[data-theme="institucional"] .g2{background:radial-gradient(circle,rgba(201,161,59,.22),transparent 70%)}
@@ -946,4 +1004,10 @@ html[data-theme="institucional"] .academy-audience .card{background:rgba(255,255
     .hamburger{z-index:1100}
     .nav-group-toggle{min-height:48px;padding-block:.75rem}
     .nav-group-content .nav-item{min-height:46px}
+}
+
+@media(max-width:900px){
+    body.sidebar-open .hamburger{opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-10px)}
+    .hamburger{transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
+    .sidebar-head{min-height:88px;padding-left:1.2rem}
 }
