@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="actual">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,6 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem('theme') === 'institucional' ? 'institucional' : 'actual';
+    } catch (error) {
+      document.documentElement.dataset.theme = 'actual';
+    }
+  </script>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -19,7 +26,9 @@
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-head">
-    <img src="imgenes/logo-uaemex.png" alt="Logo UAEMéx"/>
+    <a href="#home" class="sidebar-logo-link" data-section="home" aria-label="Ir al inicio">
+      <img src="imgenes/logo-uaemex.png" alt="Logo UAEMéx"/>
+    </a>
     <div class="sidebar-brand">DIRECCIÓN DE DESARROLLO<br>EMPRESARIAL UAEMéx</div>
     <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Cerrar menú">Cerrar menú</button>
   </div>
@@ -28,26 +37,47 @@
     <a class="nav-item active" data-section="home"><span class="nav-icon">🏠</span>Inicio</a>
     <a class="nav-item" data-section="ecosistema"><span class="nav-icon">🌐</span>Ecosistema UAEMéx</a>
 
-    <div class="nav-section">Fomento Empresarial</div>
-    <a class="nav-item" data-section="fomento-empresarial"><span class="nav-icon">🔎</span>Fomento Empresarial</a>
-    <a class="nav-item" data-section="metodologia-fomento"><span class="nav-icon">⚙️</span>Metodología de Fomento</a>
-    <a class="nav-item" data-section="ruta-formativa-inicial"><span class="nav-icon">🧭</span>Ruta Formativa Inicial</a>
-    <a class="nav-item" data-section="actividades-complementarias"><span class="nav-icon">✦</span>Actividades complementarias</a>
-    <a class="nav-item" data-section="evaluacion-regional"><span class="nav-icon">✓</span>Evaluación Regional</a>
-    <a class="nav-item" data-section="proceso-seleccion"><span class="nav-icon">↗</span>Proceso de selección</a>
+    <div class="nav-group" data-nav-group>
+      <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="nav-group-fomento">
+        <span>Fomento Empresarial</span><span class="nav-chevron" aria-hidden="true">▸</span>
+      </button>
+      <div class="nav-group-content" id="nav-group-fomento" hidden>
+        <a class="nav-item" data-section="fomento-empresarial"><span class="nav-icon">🔎</span>Fomento Empresarial</a>
+        <a class="nav-item" data-section="metodologia-fomento"><span class="nav-icon">⚙️</span>Metodología de Fomento</a>
+        <a class="nav-item" data-section="ruta-formativa-inicial"><span class="nav-icon">🧭</span>Ruta Formativa Inicial</a>
+        <a class="nav-item" data-section="actividades-complementarias"><span class="nav-icon">✦</span>Actividades complementarias</a>
+        <a class="nav-item" data-section="evaluacion-regional"><span class="nav-icon">✓</span>Evaluación Regional</a>
+        <a class="nav-item" data-section="proceso-seleccion"><span class="nav-icon">↗</span>Proceso de selección</a>
+      </div>
+    </div>
 
-    <div class="nav-section">Unidades de Emprendimiento</div>
-    <a class="nav-item" data-section="manual"><span class="nav-icon">📋</span>Propósito e impacto</a>
-    <a class="nav-item" data-section="programa"><span class="nav-icon">💡</span>Programa Emprende UAEMéx 365</a>
-    <a class="nav-item" data-section="metodologia"><span class="nav-icon">⚡</span>Metodología 365</a>
-    <a class="nav-item" data-section="actividades"><span class="nav-icon">🚀</span>Actividades de activación</a>
-    <a class="nav-item" data-section="herramientas"><span class="nav-icon">🛠️</span>Herramientas digitales</a>
+    <div class="nav-group" data-nav-group>
+      <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="nav-group-unidades">
+        <span>Unidades de Emprendimiento</span><span class="nav-chevron" aria-hidden="true">▸</span>
+      </button>
+      <div class="nav-group-content" id="nav-group-unidades" hidden>
+        <a class="nav-item" data-section="manual"><span class="nav-icon">📋</span>Propósito e impacto</a>
+        <a class="nav-item" data-section="programa"><span class="nav-icon">💡</span>Programa Emprende UAEMéx 365</a>
+        <a class="nav-item" data-section="metodologia"><span class="nav-icon">⚡</span>Metodología 365</a>
+        <a class="nav-item" data-section="actividades"><span class="nav-icon">🚀</span>Actividades de activación</a>
+        <a class="nav-item" data-section="herramientas"><span class="nav-icon">🛠️</span>Herramientas digitales</a>
+      </div>
+    </div>
 
-    <div class="nav-section">Incubación de la Innovación</div>
-    <a class="nav-item" data-section="incubacion"><span class="nav-icon">📈</span>Incubación de la Innovación</a>
+    <div class="nav-group" data-nav-group>
+      <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="nav-group-incubacion">
+        <span>Incubación de la Innovación</span><span class="nav-chevron" aria-hidden="true">▸</span>
+      </button>
+      <div class="nav-group-content" id="nav-group-incubacion" hidden>
+        <a class="nav-item" data-section="incubacion"><span class="nav-icon">📈</span>Incubación de la Innovación</a>
+      </div>
+    </div>
 
     <div class="nav-section">Agenda</div>
     <a class="nav-item" data-section="eventos"><span class="nav-icon">📅</span>Eventos</a>
+
+    <div class="nav-section">Configuración</div>
+    <a class="nav-item" data-section="temas"><span class="nav-icon">◐</span>Ver temas</a>
   </div>
   <div class="sidebar-foot">
     <div class="sidebar-footer-image">
@@ -781,6 +811,53 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ══════════════ VER TEMAS ══════════════ -->
+  <section class="section themes-section" id="temas" aria-labelledby="themes-title">
+    <div class="themes-watermark" aria-hidden="true"></div>
+    <div class="themes-shell">
+      <div class="sec-header reveal">
+        <div class="tag">Configuración visual</div>
+        <h2 class="sec-title" id="themes-title">Ver <span class="grad-cyan">temas</span></h2>
+        <div class="divider"></div>
+        <p class="lead">Selecciona la apariencia visual de la página.</p>
+        <p class="theme-status" id="themeStatus" role="status" aria-live="polite">Tema activo: Tema actual</p>
+      </div>
+
+      <div class="theme-options">
+        <article class="theme-option reveal" data-theme-option="actual">
+          <div class="theme-preview theme-preview-current" aria-hidden="true">
+            <span class="preview-sidebar"></span>
+            <span class="preview-content"><i></i><i></i><i></i></span>
+          </div>
+          <div class="theme-option-copy">
+            <div class="theme-option-heading">
+              <h3>Tema actual</h3>
+              <span class="theme-active-badge">Activo</span>
+            </div>
+            <p>Diseño oscuro, tecnológico e innovador para presentar el ecosistema emprendedor con una estética dinámica.</p>
+            <button class="btn btn-p theme-apply" type="button" data-apply-theme="actual">Aplicar tema actual</button>
+          </div>
+        </article>
+
+        <article class="theme-option reveal" data-theme-option="institucional">
+          <div class="theme-preview theme-preview-institutional" aria-hidden="true">
+            <span class="preview-sidebar"></span>
+            <span class="preview-flower"></span>
+            <span class="preview-content"><i></i><i></i><i></i></span>
+          </div>
+          <div class="theme-option-copy">
+            <div class="theme-option-heading">
+              <h3>Tema institucional UAEMéx</h3>
+              <span class="theme-active-badge">Activo</span>
+            </div>
+            <p>Diseño claro, formal e institucional, con colores universitarios, flor de agua visual y enfoque ejecutivo.</p>
+            <button class="btn btn-p theme-apply" type="button" data-apply-theme="institucional">Aplicar tema institucional</button>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════════ ECOSISTEMA ══════════════ -->
