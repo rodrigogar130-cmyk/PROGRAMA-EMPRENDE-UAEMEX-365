@@ -20,9 +20,10 @@ const themeStatus = document.getElementById('themeStatus');
 
 function getStoredTheme() {
   try {
-    return localStorage.getItem('theme') === 'institucional' ? 'institucional' : 'actual';
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme === 'actual' || savedTheme === 'institucional' ? savedTheme : 'institucional';
   } catch (error) {
-    return 'actual';
+    return 'institucional';
   }
 }
 
@@ -51,7 +52,7 @@ function setTheme(theme, persist = true) {
   });
 
   if (themeStatus) {
-    themeStatus.textContent = `Tema activo: ${selectedTheme === 'institucional' ? 'Institucional UAEMéx' : 'Tema actual'}`;
+    themeStatus.textContent = `Tema activo: ${selectedTheme === 'institucional' ? 'Institucional UAEMéx' : 'Innovador'}`;
   }
 }
 
@@ -73,6 +74,12 @@ function setNavGroupState(group, open) {
   chevron.textContent = open ? '▾' : '▸';
 }
 
+function closeOtherNavGroups(activeGroup = null) {
+  navGroups.forEach(group => {
+    if (group !== activeGroup) setNavGroupState(group, false);
+  });
+}
+
 function openGroupForSection(sectionId) {
   let activeGroup = null;
 
@@ -84,9 +91,10 @@ function openGroupForSection(sectionId) {
   });
 
   if (activeGroup) {
+    closeOtherNavGroups(activeGroup);
     setNavGroupState(activeGroup, true);
   } else {
-    navGroups.forEach(group => setNavGroupState(group, false));
+    closeOtherNavGroups();
   }
 }
 
@@ -94,6 +102,7 @@ navGroupToggles.forEach(toggle => {
   toggle.addEventListener('click', () => {
     const group = toggle.closest('[data-nav-group]');
     const willOpen = toggle.getAttribute('aria-expanded') !== 'true';
+    closeOtherNavGroups(group);
     setNavGroupState(group, willOpen);
   });
 });

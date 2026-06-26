@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="actual">
+<html lang="es" data-theme="institucional">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,9 +15,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
   <script>
     try {
-      document.documentElement.dataset.theme = localStorage.getItem('theme') === 'institucional' ? 'institucional' : 'actual';
+      const savedTheme = localStorage.getItem('theme') || 'institucional';
+      document.documentElement.dataset.theme = savedTheme === 'actual' ? 'actual' : 'institucional';
     } catch (error) {
-      document.documentElement.dataset.theme = 'actual';
+      document.documentElement.dataset.theme = 'institucional';
     }
   </script>
   <link rel="stylesheet" href="styles.css"/>
@@ -83,7 +84,7 @@
     <a class="nav-item" data-section="eventos"><span class="nav-icon">📅</span>Eventos</a>
 
     <div class="nav-section">Configuración</div>
-    <a class="nav-item" data-section="temas"><span class="nav-icon">◐</span>Ver temas</a>
+    <a class="nav-item" data-section="temas"><span class="nav-icon">🎨</span>Cambiar tema</a>
   </div>
   <div class="sidebar-foot">
     <div class="sidebar-footer-image">
@@ -115,6 +116,13 @@
           <p class="lead">La Dirección de Desarrollo Empresarial impulsa una ruta institucional para identificar talento, construir proyectos y profesionalizar modelos de negocio con impacto económico.</p>
           <div class="btns">
             <a class="btn btn-p" href="#ruta-institucional-dde">Ver ruta institucional</a>
+            <button class="btn home-theme-card" type="button" data-section="temas" aria-label="Cambiar tema visual">
+              <span class="home-theme-icon" aria-hidden="true">🎨</span>
+              <span class="home-theme-copy">
+                <strong>Cambiar tema</strong>
+                <small>Elige cómo quieres visualizar la página: institucional o innovador.</small>
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -828,7 +836,7 @@
         <h2 class="sec-title" id="themes-title">Ver <span class="grad-cyan">temas</span></h2>
         <div class="divider"></div>
         <p class="lead">Selecciona la apariencia visual de la página.</p>
-        <p class="theme-status" id="themeStatus" role="status" aria-live="polite">Tema activo: Tema actual</p>
+        <p class="theme-status" id="themeStatus" role="status" aria-live="polite">Tema activo: Institucional UAEMéx</p>
       </div>
 
       <div class="theme-options">
@@ -839,11 +847,11 @@
           </div>
           <div class="theme-option-copy">
             <div class="theme-option-heading">
-              <h3>Tema actual</h3>
+              <h3>Tema Innovador</h3>
               <span class="theme-active-badge">Activo</span>
             </div>
-            <p>Diseño oscuro, tecnológico e innovador para presentar el ecosistema emprendedor con una estética dinámica.</p>
-            <button class="btn btn-p theme-apply" type="button" data-apply-theme="actual">Aplicar tema actual</button>
+            <p>Diseño oscuro, tecnológico e innovador para presentar el ecosistema emprendedor con una estética dinámica y moderna.</p>
+            <button class="btn btn-p theme-apply" type="button" data-apply-theme="actual">Aplicar tema innovador</button>
           </div>
         </article>
 
