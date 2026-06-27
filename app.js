@@ -176,6 +176,78 @@ openGroupForSection(document.querySelector('.section.active')?.id);
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ── VISOR DE FOMENTO EMPRESARIAL ──
+const fomentoDetailDialog = document.getElementById('fomentoDetailDialog');
+const fomentoDetailBody = document.getElementById('fomentoDetailBody');
+const fomentoDetailTitle = document.getElementById('fomentoDetailTitle');
+const fomentoDetailProgress = document.getElementById('fomentoDetailProgress');
+const fomentoDetailClose = document.getElementById('fomentoDetailClose');
+const fomentoDetailPrev = document.getElementById('fomentoDetailPrev');
+const fomentoDetailNext = document.getElementById('fomentoDetailNext');
+const fomentoPanelButtons = Array.from(document.querySelectorAll('[data-fm-panel]'));
+const fomentoPanelTemplates = Array.from(document.querySelectorAll('[data-fm-content]'));
+let fomentoDetailIndex = 0;
+let fomentoDetailPreviousFocus = null;
+
+function renderFomentoDetail(index) {
+  const template = fomentoPanelTemplates[index];
+  if (!template || !fomentoDetailBody) return;
+
+  fomentoDetailIndex = index;
+  fomentoDetailTitle.textContent = template.dataset.title;
+  fomentoDetailProgress.textContent = `Sección ${index + 1} de ${fomentoPanelTemplates.length}`;
+  fomentoDetailBody.replaceChildren(template.content.cloneNode(true));
+  fomentoDetailBody.scrollTop = 0;
+  fomentoDetailPrev.disabled = index === 0;
+  fomentoDetailNext.disabled = index === fomentoPanelTemplates.length - 1;
+
+  fomentoPanelButtons.forEach(button => {
+    button.classList.toggle('is-active', button.dataset.fmPanel === template.dataset.fmContent);
+  });
+}
+
+function openFomentoDetail(panelId, trigger) {
+  if (!fomentoDetailDialog) return;
+  const index = fomentoPanelTemplates.findIndex(template => template.dataset.fmContent === panelId);
+  if (index < 0) return;
+
+  fomentoDetailPreviousFocus = trigger;
+  renderFomentoDetail(index);
+  if (!fomentoDetailDialog.open) fomentoDetailDialog.showModal();
+  document.body.classList.add('modal-open');
+}
+
+function closeFomentoDetail() {
+  if (fomentoDetailDialog?.open) fomentoDetailDialog.close();
+}
+
+fomentoPanelButtons.forEach(button => {
+  button.addEventListener('click', () => openFomentoDetail(button.dataset.fmPanel, button));
+});
+
+fomentoDetailClose?.addEventListener('click', closeFomentoDetail);
+fomentoDetailPrev?.addEventListener('click', () => renderFomentoDetail(fomentoDetailIndex - 1));
+fomentoDetailNext?.addEventListener('click', () => renderFomentoDetail(fomentoDetailIndex + 1));
+
+fomentoDetailBody?.addEventListener('click', event => {
+  const sectionLink = event.target.closest('[data-section]');
+  if (!sectionLink) return;
+  event.preventDefault();
+  const sectionId = sectionLink.dataset.section;
+  closeFomentoDetail();
+  goTo(sectionId);
+});
+
+fomentoDetailDialog?.addEventListener('click', event => {
+  if (event.target === fomentoDetailDialog) closeFomentoDetail();
+});
+
+fomentoDetailDialog?.addEventListener('close', () => {
+  document.body.classList.remove('modal-open');
+  fomentoPanelButtons.forEach(button => button.classList.remove('is-active'));
+  if (fomentoDetailPreviousFocus?.isConnected) fomentoDetailPreviousFocus.focus();
+});
+
 // ── VISOR DEL ESQUEMA DEL EVENTO ──
 const eventImageModal = document.getElementById('eventImageModal');
 const openEventScheme = document.getElementById('openEventScheme');
