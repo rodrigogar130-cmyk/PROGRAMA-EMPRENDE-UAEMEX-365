@@ -106,6 +106,12 @@ function openGroupForSection(sectionId) {
     return;
   }
 
+  if (sectionId?.startsWith('home-')) {
+    closeOtherNavGroups(homeSidebarGroup);
+    setHomeSidebarState(true);
+    return;
+  }
+
   let activeGroup = null;
 
   navGroups.forEach(group => {
@@ -143,7 +149,7 @@ openGroupForSection(document.querySelector('.section.active')?.id);
     document.body.classList.toggle('sidebar-open', open);
   }
 
-  function goTo(id) {
+  function goTo(id, closeMobile = true) {
     sections.forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
     if (target) { target.classList.add('active'); window.scrollTo(0,0); }
@@ -151,7 +157,7 @@ openGroupForSection(document.querySelector('.section.active')?.id);
       n.classList.toggle('active', n.dataset.section === id && !n.dataset.homeTab);
     });
     openGroupForSection(id);
-    if (window.innerWidth <= 900) {
+    if (closeMobile && window.innerWidth <= 900) {
       setMobileMenu(false);
     }
     // Re-trigger reveals for new section
@@ -171,12 +177,9 @@ openGroupForSection(document.querySelector('.section.active')?.id);
         ? !homeSidebarGroup?.classList.contains('home-sidebar-open')
         : false;
 
-      goTo(item.dataset.section);
+      goTo(item.dataset.section, !togglesHomeSidebar);
       if (togglesHomeSidebar) {
         setHomeSidebarState(willOpenHomeSidebar);
-      }
-      if (item.dataset.section === 'home' && !item.dataset.homeTab && !item.dataset.homeTabLink) {
-        setHomeTab('vision');
       }
     });
   });

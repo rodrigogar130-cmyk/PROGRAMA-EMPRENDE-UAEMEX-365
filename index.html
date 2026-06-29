@@ -47,9 +47,9 @@
         <span class="nav-chevron" data-home-sidebar-chevron aria-hidden="true">▸</span>
       </button>
       <div class="home-subnav" id="home-subnav" aria-label="Subsecciones de Inicio" hidden>
-        <a class="nav-item home-subitem active" data-section="home" data-home-tab="vision"><span class="home-sub-index">01</span>Visión institucional</a>
-        <a class="nav-item home-subitem" data-section="home" data-home-tab="continuidad"><span class="home-sub-index">02</span>Problema anterior - Solución actual</a>
-        <a class="nav-item home-subitem" data-section="home" data-home-tab="ruta"><span class="home-sub-index">03</span>Ruta institucional DDE</a>
+        <a class="nav-item home-subitem" data-section="home-vision"><span class="home-sub-index">01</span>Visión institucional</a>
+        <a class="nav-item home-subitem" data-section="home-problema"><span class="home-sub-index">02</span>Problema anterior - Solución actual</a>
+        <a class="nav-item home-subitem" data-section="home-ruta"><span class="home-sub-index">03</span>Ruta institucional DDE</a>
       </div>
     </div>
     <a class="nav-item" data-section="ecosistema"><span class="nav-icon">🌐</span>Ecosistema UAEMéx</a>
@@ -125,7 +125,7 @@
           <p class="hero-kicker">De la identificación y selección del talento universitario a la generación de proyectos de alto impacto y su canalización para desarrollar modelos de negocio con salida al mercado.</p>
           <p class="lead">La Dirección de Desarrollo Empresarial impulsa una ruta institucional para identificar talento, construir proyectos y profesionalizar modelos de negocio con impacto económico.</p>
           <div class="btns">
-            <a class="btn btn-p" href="#ruta-institucional-dde" data-home-tab-link="ruta">Ver ruta institucional</a>
+            <a class="btn btn-p" href="#home-ruta" data-section="home-ruta">Ver ruta institucional</a>
             <button class="btn home-theme-card" type="button" data-section="temas" aria-label="Cambiar tema visual">
               <span class="home-theme-icon" aria-hidden="true">🎨</span>
               <span class="home-theme-copy">
@@ -144,9 +144,11 @@
       <a class="btn home-area-btn" data-section="incubacion"><span aria-hidden="true">📈</span>Incubación de la Innovación</a>
     </nav>
 
-    <section class="home-route-tabs reveal" aria-label="Contenido de subsecciones de Inicio">
+  </section>
+
+  <section class="section home-route-tabs" id="home-vision" aria-labelledby="vision-reto-title">
       <div class="home-route-tab-content">
-    <section class="institutional-challenge active" id="home-tab-vision" role="tabpanel" data-home-panel="vision">
+    <section class="institutional-challenge active" id="home-tab-vision">
       <div class="challenge-heading">
         <div class="tag">Visión institucional</div>
         <h2 class="sec-title" id="vision-reto-title">Visión general del <span class="grad-cyan">reto institucional</span></h2>
@@ -160,8 +162,12 @@
       </div>
       <p class="challenge-question">¿Cómo pasamos de actividades aisladas a un sistema institucional que genere modelos de negocio?</p>
     </section>
+      </div>
+  </section>
 
-    <section class="institutional-problem" id="home-tab-continuidad" role="tabpanel" data-home-panel="continuidad" hidden>
+  <section class="section home-route-tabs" id="home-problema" aria-labelledby="problema-institucional-title">
+      <div class="home-route-tab-content">
+    <section class="institutional-problem" id="home-tab-continuidad">
       <div class="problem-copy problem-copy-wide">
         <div class="tag">Problema anterior - Solución actual</div>
         <h2 class="sec-title" id="problema-institucional-title">Problema anterior - <span class="grad-mag">Solución actual</span></h2>
@@ -189,12 +195,16 @@
       </div>
       <p class="problem-conclusion">La ruta actual permite identificar perfiles con mayor potencial, formar equipos y canalizar participantes hacia Unidades de Emprendimiento e Incubación de la Innovación.</p>
     </section>
+      </div>
+  </section>
 
-    <div class="institutional-route" id="ruta-institucional-dde" role="tabpanel" data-home-panel="ruta" hidden>
+  <section class="section home-route-tabs" id="home-ruta" aria-labelledby="ruta-institucional-title">
+      <div class="home-route-tab-content">
+    <div class="institutional-route" id="ruta-institucional-dde">
       <div class="route-intro">
         <div>
           <div class="tag">Ruta institucional DDE</div>
-          <h2 class="sec-title">Un ecosistema, <span class="grad-cyan">tres etapas conectadas</span></h2>
+          <h2 class="sec-title" id="ruta-institucional-title">Un ecosistema, <span class="grad-cyan">tres etapas conectadas</span></h2>
         </div>
         <div class="route-summary">
           <p>Esta estrategia conecta los esfuerzos de Fomento Empresarial, Unidades de Emprendimiento e Incubación de la Innovación, integrando convocatorias, formación, validación, evidencias, mentorías y salida al mercado dentro de una misma ruta.</p>
@@ -267,8 +277,7 @@
         </article>
       </div>
     </div>
-    </section>
-
+      </div>
   </section>
 
   <!-- ══════════════ PROGRAMA EMPRENDE UAEMÉX 365 ══════════════ -->
