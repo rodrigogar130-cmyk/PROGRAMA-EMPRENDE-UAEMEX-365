@@ -41,7 +41,17 @@
   </div>
   <div class="sidebar-nav">
     <div class="nav-section">Principal</div>
-    <a class="nav-item active" data-section="home"><span class="nav-icon">🏠</span>Inicio</a>
+    <div class="home-sidebar-group" data-home-sidebar-group>
+      <button class="nav-item active home-parent-item" type="button" data-section="home" data-home-sidebar-toggle aria-expanded="false" aria-controls="home-subnav">
+        <span class="home-parent-label"><span class="nav-icon">🏠</span>Inicio</span>
+        <span class="nav-chevron" data-home-sidebar-chevron aria-hidden="true">▸</span>
+      </button>
+      <div class="home-subnav" id="home-subnav" aria-label="Subsecciones de Inicio" hidden>
+        <a class="nav-item home-subitem active" data-section="home" data-home-tab="vision"><span class="home-sub-index">01</span>Visión institucional</a>
+        <a class="nav-item home-subitem" data-section="home" data-home-tab="continuidad"><span class="home-sub-index">02</span>Problema anterior - Solución actual</a>
+        <a class="nav-item home-subitem" data-section="home" data-home-tab="ruta"><span class="home-sub-index">03</span>Ruta institucional DDE</a>
+      </div>
+    </div>
     <a class="nav-item" data-section="ecosistema"><span class="nav-icon">🌐</span>Ecosistema UAEMéx</a>
 
     <div class="nav-group" data-nav-group>
@@ -115,7 +125,7 @@
           <p class="hero-kicker">De la identificación y selección del talento universitario a la generación de proyectos de alto impacto y su canalización para desarrollar modelos de negocio con salida al mercado.</p>
           <p class="lead">La Dirección de Desarrollo Empresarial impulsa una ruta institucional para identificar talento, construir proyectos y profesionalizar modelos de negocio con impacto económico.</p>
           <div class="btns">
-            <a class="btn btn-p" href="#ruta-institucional-dde">Ver ruta institucional</a>
+            <a class="btn btn-p" href="#ruta-institucional-dde" data-home-tab-link="ruta">Ver ruta institucional</a>
             <button class="btn home-theme-card" type="button" data-section="temas" aria-label="Cambiar tema visual">
               <span class="home-theme-icon" aria-hidden="true">🎨</span>
               <span class="home-theme-copy">
@@ -134,7 +144,9 @@
       <a class="btn home-area-btn" data-section="incubacion"><span aria-hidden="true">📈</span>Incubación de la Innovación</a>
     </nav>
 
-    <section class="institutional-challenge reveal" aria-labelledby="vision-reto-title">
+    <section class="home-route-tabs reveal" aria-label="Contenido de subsecciones de Inicio">
+      <div class="home-route-tab-content">
+    <section class="institutional-challenge active" id="home-tab-vision" role="tabpanel" data-home-panel="vision">
       <div class="challenge-heading">
         <div class="tag">Visión institucional</div>
         <h2 class="sec-title" id="vision-reto-title">Visión general del <span class="grad-cyan">reto institucional</span></h2>
@@ -149,32 +161,36 @@
       <p class="challenge-question">¿Cómo pasamos de actividades aisladas a un sistema institucional que genere modelos de negocio?</p>
     </section>
 
-    <section class="institutional-problem reveal" aria-labelledby="problema-institucional-title">
-      <div class="problem-copy">
-        <div class="tag">Continuidad operativa</div>
-        <h2 class="sec-title" id="problema-institucional-title">Problema institucional que <span class="grad-mag">estamos atendiendo</span></h2>
-        <p class="problem-lead">La ausencia de una ruta común reduce la trazabilidad y diluye el impacto de las iniciativas.</p>
-        <p>Hoy se genera valor en múltiples puntos, pero parte de ese valor se pierde cuando no existe continuidad operativa.</p>
+    <section class="institutional-problem" id="home-tab-continuidad" role="tabpanel" data-home-panel="continuidad" hidden>
+      <div class="problem-copy problem-copy-wide">
+        <div class="tag">Problema anterior - Solución actual</div>
+        <h2 class="sec-title" id="problema-institucional-title">Problema anterior - <span class="grad-mag">Solución actual</span></h2>
+        <p class="problem-lead">El modelo anterior priorizaba la captación de proyectos; la nueva ruta institucional canaliza talento, visión y actitud emprendedora hacia procesos de formación, desarrollo e incubación.</p>
       </div>
-      <div class="institutional-flow" aria-label="Flujo del problema institucional">
-        <div class="flow-source-group">
-          <span>Convocatorias</span><span>Actividades</span><span>Concursos</span><span>Muestras y mercados emprendedores</span><span>Mentorías</span>
-        </div>
-        <span class="flow-arrow" aria-hidden="true">→</span>
-        <div class="flow-value"><small>Valor</small><strong>generado</strong></div>
-        <span class="flow-arrow" aria-hidden="true">→</span>
-        <div class="flow-loss"><span>Sin trazabilidad</span><span>Sin seguimiento</span><span>Sin canalización</span></div>
-        <span class="flow-arrow" aria-hidden="true">→</span>
-        <div class="flow-result">Proyectos genéricos</div>
+      <div class="problem-image-grid">
+        <figure class="problem-image-card">
+          <button class="problem-image-trigger" type="button" data-problem-image="0" aria-label="Abrir Modelo anterior de participación">
+            <img src="imgenes/modelo-anterior.png" alt="Modelo anterior de participación">
+          </button>
+          <figcaption>
+            <strong>Modelo anterior</strong>
+            <span>Antes se priorizaba captar muchos proyectos para concursar, pero no necesariamente formar emprendedores.</span>
+          </figcaption>
+        </figure>
+        <figure class="problem-image-card">
+          <button class="problem-image-trigger" type="button" data-problem-image="1" aria-label="Abrir Nueva ruta de canalización de participantes">
+            <img src="imgenes/nueva-ruta.png" alt="Nueva ruta de canalización de participantes">
+          </button>
+          <figcaption>
+            <strong>Nueva ruta</strong>
+            <span>Ahora se canaliza a quienes destacan por talento, visión y actitud, conectando Fomento Empresarial, Unidades de Emprendimiento e Incubación de la Innovación.</span>
+          </figcaption>
+        </figure>
       </div>
-      <div class="institutional-risk">
-        <div><span class="risk-label">Riesgo institucional</span><h3>El valor existe, pero no siempre se convierte en resultados sostenibles.</h3></div>
-        <ul><li>Duplicidad de esfuerzos</li><li>Baja conversión a incubación</li><li>Indicadores no comparables</li><li>Poca evidencia para toma de decisiones</li><li>No existe la formación de equipos de alto desempeño</li></ul>
-      </div>
-      <p class="problem-conclusion">La solución no es hacer más actividades; es conectarlas dentro de un embudo institucional medible.</p>
+      <p class="problem-conclusion">La ruta actual permite identificar perfiles con mayor potencial, formar equipos y canalizar participantes hacia Unidades de Emprendimiento e Incubación de la Innovación.</p>
     </section>
 
-    <div class="institutional-route reveal" id="ruta-institucional-dde">
+    <div class="institutional-route" id="ruta-institucional-dde" role="tabpanel" data-home-panel="ruta" hidden>
       <div class="route-intro">
         <div>
           <div class="tag">Ruta institucional DDE</div>
@@ -251,6 +267,7 @@
         </article>
       </div>
     </div>
+    </section>
 
   </section>
 
@@ -612,8 +629,10 @@
         <div class="tag">Departamento de Fomento Empresarial</div>
         <h1>Fomento <span>Empresarial</span></h1>
         <p class="fm-kicker">Ruta Formativa Inicial del Concurso Emprendedor UAEMéx</p>
-        <p>Fomento Empresarial es la puerta de entrada al ecosistema emprendedor de la DDE. Identifica, activa y selecciona talento mediante el Concurso Emprendedor UAEMéx, rutas formativas iniciales, evaluación regional y procesos de canalización hacia Unidades de Emprendimiento.</p>
-        <div class="fm-badges"><span>Detección de talento</span><span>Validación temprana</span><span>Canalización institucional</span></div>
+        <p>Fomento Empresarial impulsa la cultura emprendedora en la comunidad universitaria mediante una metodología formativa que permite sensibilizar, orientar e identificar talento con potencial emprendedor. Su labor articula actividades, concursos, rutas formativas y procesos de evaluación que ayudan a transformar el interés emprendedor en competencias, evidencias iniciales y oportunidades de continuidad dentro del ecosistema de la DDE.</p>
+        <p class="fm-purpose-note">Su propósito es fomentar, formar e identificar perfiles emprendedores con capacidad de desarrollar propuestas de valor vinculadas a problemáticas reales.</p>
+        <div class="fm-badges"><span>Fomento de cultura emprendedora</span><span>Desarrollo de competencias</span><span>Canalización institucional</span></div>
+        <div class="fm-hero-actions"><a class="btn btn-p" data-section="metodologia-fomento">Ver metodología de Fomento</a></div>
       </div>
       <aside class="fm-hero-highlight"><small>Propósito institucional</small><strong>Convertir el interés emprendedor en competencias, evidencia y oportunidades de continuidad.</strong><div class="fm-pulse" aria-hidden="true"><i></i><i></i><i></i></div></aside>
     </div>
@@ -971,6 +990,25 @@
 </main>
 
 <!-- ══════════════ VISOR DEL ESQUEMA DEL EVENTO ══════════════ -->
+<div class="problem-carousel-modal" id="problemCarouselModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="problemCarouselTitle">
+  <div class="problem-carousel-dialog" role="document">
+    <div class="problem-carousel-toolbar">
+      <div>
+        <span class="problem-carousel-count" id="problemCarouselCount">1 de 2</span>
+        <h2 id="problemCarouselTitle">Modelo anterior de participación</h2>
+      </div>
+      <button class="problem-carousel-close" id="closeProblemCarousel" type="button" aria-label="Cerrar visor">×</button>
+    </div>
+    <div class="problem-carousel-stage">
+      <button class="problem-carousel-nav problem-carousel-prev" id="problemCarouselPrev" type="button" aria-label="Imagen anterior">Anterior</button>
+      <div class="problem-carousel-image-wrap">
+        <img id="problemCarouselImage" src="imgenes/modelo-anterior.png" alt="Modelo anterior de participación">
+      </div>
+      <button class="problem-carousel-nav problem-carousel-next" id="problemCarouselNext" type="button" aria-label="Imagen siguiente">Siguiente</button>
+    </div>
+  </div>
+</div>
+
 <div class="event-image-modal" id="eventImageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="eventImageModalTitle">
   <div class="event-image-dialog" role="document">
     <div class="event-image-toolbar">

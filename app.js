@@ -12,6 +12,10 @@
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 const navGroups = document.querySelectorAll('[data-nav-group]');
 const navGroupToggles = document.querySelectorAll('.nav-group-toggle');
+const homeSidebarGroup = document.querySelector('[data-home-sidebar-group]');
+const homeSidebarToggle = document.querySelector('[data-home-sidebar-toggle]');
+const homeSubnav = document.getElementById('home-subnav');
+const homeSidebarChevron = document.querySelector('[data-home-sidebar-chevron]');
 
 // ── SELECTOR DE TEMAS ──
 const themeButtons = document.querySelectorAll('[data-apply-theme]');
@@ -63,6 +67,18 @@ themeButtons.forEach(button => {
 setTheme(getStoredTheme(), false);
 
 // ── MENÚ LATERAL ACORDEÓN ──
+function setHomeSidebarState(open) {
+  if (!homeSidebarGroup || !homeSidebarToggle || !homeSubnav) return;
+
+  homeSidebarGroup.classList.toggle('home-sidebar-open', open);
+  homeSidebarToggle.setAttribute('aria-expanded', String(open));
+  homeSubnav.hidden = !open;
+
+  if (homeSidebarChevron) {
+    homeSidebarChevron.textContent = open ? '▾' : '▸';
+  }
+}
+
 function setNavGroupState(group, open) {
   const toggle = group.querySelector('.nav-group-toggle');
   const content = group.querySelector('.nav-group-content');
@@ -78,9 +94,18 @@ function closeOtherNavGroups(activeGroup = null) {
   navGroups.forEach(group => {
     if (group !== activeGroup) setNavGroupState(group, false);
   });
+
+  if (activeGroup !== homeSidebarGroup) {
+    setHomeSidebarState(false);
+  }
 }
 
 function openGroupForSection(sectionId) {
+  if (sectionId === 'home') {
+    closeOtherNavGroups(homeSidebarGroup);
+    return;
+  }
+
   let activeGroup = null;
 
   navGroups.forEach(group => {
@@ -123,7 +148,7 @@ openGroupForSection(document.querySelector('.section.active')?.id);
     const target = document.getElementById(id);
     if (target) { target.classList.add('active'); window.scrollTo(0,0); }
     document.querySelectorAll('.nav-item').forEach(n => {
-      n.classList.toggle('active', n.dataset.section === id);
+      n.classList.toggle('active', n.dataset.section === id && !n.dataset.homeTab);
     });
     openGroupForSection(id);
     if (window.innerWidth <= 900) {
@@ -141,7 +166,18 @@ openGroupForSection(document.querySelector('.section.active')?.id);
   navItems.forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault();
+      const togglesHomeSidebar = item.hasAttribute('data-home-sidebar-toggle');
+      const willOpenHomeSidebar = togglesHomeSidebar
+        ? !homeSidebarGroup?.classList.contains('home-sidebar-open')
+        : false;
+
       goTo(item.dataset.section);
+      if (togglesHomeSidebar) {
+        setHomeSidebarState(willOpenHomeSidebar);
+      }
+      if (item.dataset.section === 'home' && !item.dataset.homeTab && !item.dataset.homeTabLink) {
+        setHomeTab('vision');
+      }
     });
   });
 
@@ -168,6 +204,49 @@ openGroupForSection(document.querySelector('.section.active')?.id);
   });
 
   // ── SCROLL REVEAL ──
+  // HOME INTERNAL TABS
+  const homeTabButtons = document.querySelectorAll('[data-home-tab]');
+  const homeTabPanels = document.querySelectorAll('[data-home-panel]');
+
+  function setHomeTab(tabId, shouldScroll = false) {
+    if (!tabId) return;
+
+    homeTabButtons.forEach(button => {
+      const isActive = button.dataset.homeTab === tabId;
+      button.classList.toggle('active', isActive);
+      if (button.hasAttribute('aria-selected')) {
+        button.setAttribute('aria-selected', String(isActive));
+      }
+    });
+
+    homeTabPanels.forEach(panel => {
+      const isActive = panel.dataset.homePanel === tabId;
+      panel.classList.toggle('active', isActive);
+      panel.hidden = !isActive;
+    });
+
+    if (shouldScroll) {
+      document.querySelector('.home-route-tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  homeTabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const isSidebarSubitem = button.classList.contains('home-subitem');
+      if (isSidebarSubitem) {
+        setHomeSidebarState(true);
+      }
+      setHomeTab(button.dataset.homeTab, isSidebarSubitem);
+    });
+  });
+
+  document.querySelectorAll('[data-home-tab-link]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      setHomeTab(link.dataset.homeTabLink, true);
+    });
+  });
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
@@ -177,6 +256,77 @@ openGroupForSection(document.querySelector('.section.active')?.id);
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ── VISOR DE FOMENTO EMPRESARIAL ──
+// VISOR COMPARATIVO DE INICIO
+const problemCarouselItems = [
+  {
+    title: 'Modelo anterior de participación',
+    src: 'imgenes/modelo-anterior.png',
+    alt: 'Modelo anterior de participación'
+  },
+  {
+    title: 'Nueva ruta de canalización de participantes',
+    src: 'imgenes/nueva-ruta.png',
+    alt: 'Nueva ruta de canalización de participantes'
+  }
+];
+const problemCarouselModal = document.getElementById('problemCarouselModal');
+const problemCarouselImage = document.getElementById('problemCarouselImage');
+const problemCarouselTitle = document.getElementById('problemCarouselTitle');
+const problemCarouselCount = document.getElementById('problemCarouselCount');
+const closeProblemCarousel = document.getElementById('closeProblemCarousel');
+const problemCarouselPrev = document.getElementById('problemCarouselPrev');
+const problemCarouselNext = document.getElementById('problemCarouselNext');
+const problemImageTriggers = document.querySelectorAll('[data-problem-image]');
+let problemCarouselIndex = 0;
+let problemCarouselPreviousFocus = null;
+
+function renderProblemCarousel(index) {
+  const nextIndex = (index + problemCarouselItems.length) % problemCarouselItems.length;
+  const item = problemCarouselItems[nextIndex];
+  if (!item || !problemCarouselImage || !problemCarouselTitle || !problemCarouselCount) return;
+
+  problemCarouselIndex = nextIndex;
+  problemCarouselImage.src = item.src;
+  problemCarouselImage.alt = item.alt;
+  problemCarouselTitle.textContent = item.title;
+  problemCarouselCount.textContent = `${nextIndex + 1} de ${problemCarouselItems.length}`;
+}
+
+function openProblemCarousel(index, trigger) {
+  if (!problemCarouselModal) return;
+  problemCarouselPreviousFocus = trigger;
+  renderProblemCarousel(index);
+  problemCarouselModal.classList.add('open');
+  problemCarouselModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  closeProblemCarousel?.focus();
+}
+
+function closeProblemCarouselModal() {
+  if (!problemCarouselModal?.classList.contains('open')) return;
+  problemCarouselModal.classList.remove('open');
+  problemCarouselModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  if (problemCarouselPreviousFocus?.isConnected) problemCarouselPreviousFocus.focus();
+}
+
+problemImageTriggers.forEach(trigger => {
+  trigger.addEventListener('click', () => openProblemCarousel(Number(trigger.dataset.problemImage), trigger));
+});
+
+closeProblemCarousel?.addEventListener('click', closeProblemCarouselModal);
+problemCarouselPrev?.addEventListener('click', () => renderProblemCarousel(problemCarouselIndex - 1));
+problemCarouselNext?.addEventListener('click', () => renderProblemCarousel(problemCarouselIndex + 1));
+
+problemCarouselModal?.addEventListener('click', event => {
+  if (event.target === problemCarouselModal) closeProblemCarouselModal();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  closeProblemCarouselModal();
+});
+
 const fomentoDetailDialog = document.getElementById('fomentoDetailDialog');
 const fomentoDetailBody = document.getElementById('fomentoDetailBody');
 const fomentoDetailTitle = document.getElementById('fomentoDetailTitle');
