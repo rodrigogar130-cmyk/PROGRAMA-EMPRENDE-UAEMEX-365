@@ -997,21 +997,37 @@
   <section class="section" id="ecosistema">
     <div class="sec-header reveal">
       <div class="tag">Ecosistema UAEMéx</div>
-      <h2 class="sec-title">Ruta de integración al <span class="grad-cyan">ecosistema emprendedor</span></h2>
+      <h2 class="sec-title">Embudo de la <span class="grad-cyan">Dirección de Desarrollo Empresarial</span></h2>
       <div class="divider"></div>
-      <p class="lead">El embudo articula la detección de talento, la activación de equipos y la canalización de proyectos hacia procesos de incubación.</p>
+      <p class="lead">El embudo articula los esfuerzos de Fomento Empresarial, Unidades de Emprendimiento e Incubación de la Innovación para identificar talento, activar equipos, generar evidencia y canalizar proyectos hacia modelos de negocio con salida al mercado.</p>
     </div>
 
-    <div class="ecosystem-funnel reveal">
-      <div class="canva-container">
-        <iframe
-          id="canvaFrame"
-          loading="lazy"
-          src="https://www.canva.com/design/DAHLEd14nJ0/RMu_Z8nmyFuKSTXkt3XCQQ/view?embed"
-          title="Embudo del ecosistema Emprende UAEMéx 365"
-          allowfullscreen>
-        </iframe>
-      </div>
+    <div class="ecosystem-funnel">
+      <figure class="funnel-visual-wrap reveal">
+        <div class="funnel-image-stage">
+          <img src="imgenes/embudo-institucional.png" alt="Embudo Institucional de la Dirección de Desarrollo Empresarial" class="ecosystem-funnel-img" loading="lazy">
+          <button class="funnel-hotspot funnel-hotspot-1 is-active" type="button" data-phase="fase-1" aria-label="Primera fase: Fomento Empresarial" aria-describedby="funnelPhaseCard"><span>Primera fase</span></button>
+          <button class="funnel-hotspot funnel-hotspot-2" type="button" data-phase="fase-2" aria-label="Segunda fase: Unidades de Emprendimiento" aria-describedby="funnelPhaseCard"><span>Segunda fase</span></button>
+          <button class="funnel-hotspot funnel-hotspot-3" type="button" data-phase="fase-3" aria-label="Tercera fase: Incubación de la Innovación" aria-describedby="funnelPhaseCard"><span>Tercera fase</span></button>
+        </div>
+
+        <div class="funnel-phase-controls" aria-label="Seleccionar etapa del embudo">
+          <button class="is-active" type="button" data-phase="fase-1">Fomento Empresarial</button>
+          <button type="button" data-phase="fase-2">Unidades de Emprendimiento</button>
+          <button type="button" data-phase="fase-3">Incubación de la Innovación</button>
+        </div>
+
+        <figcaption class="funnel-phase-card" id="funnelPhaseCard" aria-live="polite">
+          <span id="funnelPhaseEyebrow">Primera fase</span>
+          <h3 id="funnelPhaseTitle">Fomento Empresarial</h3>
+          <p id="funnelPhaseText">Identificación de talento, cultura emprendedora, concursos, capacitación inicial y generación de evidencias tempranas.</p>
+        </figcaption>
+
+        <div class="funnel-actions">
+          <button class="btn btn-o funnel-expand" type="button" data-event-image="imgenes/embudo-institucional.png" data-event-title="Embudo de la Dirección de Desarrollo Empresarial" data-event-tag="Ecosistema UAEMéx" data-event-alt="Embudo Institucional de la Dirección de Desarrollo Empresarial">Ampliar embudo</button>
+          <span>Selecciona una fase para consultar su función</span>
+        </div>
+      </figure>
     </div>
 
     <div style="margin-top:3rem;text-align:center;padding:4rem 2rem;background:linear-gradient(135deg,var(--d2),var(--d3));border:1px solid rgba(94,23,235,.25);border-radius:20px;position:relative;overflow:hidden" class="reveal">
@@ -1048,7 +1064,7 @@
   <div class="event-image-dialog" role="document">
     <div class="event-image-toolbar">
       <div>
-        <span class="tag">Evento Anual DDE</span>
+        <span class="tag" id="eventImageModalTag">Evento Anual DDE</span>
         <h2 id="eventImageModalTitle">Evento Anual DDE UAEMéx</h2>
       </div>
       <button class="event-image-close" id="closeEventScheme" type="button" aria-label="Cerrar visor de imagen"><span aria-hidden="true">×</span></button>

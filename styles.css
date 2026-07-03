@@ -665,7 +665,29 @@
     .event-image-close:hover,.event-image-close:focus-visible{background:rgba(30,255,255,.18);transform:scale(1.05);outline:2px solid var(--cyan);outline-offset:2px}
     .event-image-scroll{flex:1;min-height:0;overflow:auto;padding:1rem;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(94,23,235,.18),transparent 62%),#090d1a}
     .event-image-scroll img{display:block;width:auto;height:auto;max-width:95vw;max-height:90vh;object-fit:contain;background:#fff;border:6px solid rgba(255,255,255,.96);border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
-    .ecosystem-funnel{background:linear-gradient(145deg,var(--d2),var(--d3));border:1px solid rgba(30,255,255,.18);border-radius:20px;padding:1rem;overflow:hidden}
+    .ecosystem-funnel{max-width:100%;background:linear-gradient(145deg,var(--d2),var(--d3));border:1px solid rgba(30,255,255,.18);border-radius:20px;padding:clamp(.75rem,2vw,1.35rem);overflow:hidden;box-shadow:0 22px 55px rgba(0,0,0,.18)}
+    .funnel-visual-wrap{width:100%;max-width:100%;margin:0}
+    .funnel-visual-wrap.reveal{transform:translateX(-48px);transition:opacity .85s ease,transform .85s cubic-bezier(.22,.75,.25,1)}
+    .funnel-visual-wrap.reveal.visible{transform:translateX(0)}
+    .funnel-image-stage{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(30,255,255,.2);border-radius:14px;background:#fff;box-shadow:0 14px 34px rgba(0,0,0,.2)}
+    .ecosystem-funnel-img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;border-radius:13px}
+    .funnel-hotspot{position:absolute;z-index:2;padding:0;overflow:visible;border:2px solid transparent;border-radius:16px;background:transparent;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
+    .funnel-hotspot-1{left:3.5%;top:3%;width:25%;height:91%}
+    .funnel-hotspot-2{left:29%;top:11%;width:24.5%;height:76%}
+    .funnel-hotspot-3{left:54%;top:19%;width:22%;height:62%}
+    .funnel-hotspot span{position:absolute;left:50%;bottom:1rem;transform:translate(-50%,8px);padding:.42rem .7rem;border:1px solid rgba(201,161,59,.5);border-radius:999px;background:rgba(8,19,16,.88);color:#fff;font-size:clamp(.55rem,.8vw,.72rem);font-weight:800;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+    .funnel-hotspot:hover,.funnel-hotspot:focus-visible,.funnel-hotspot.is-active{transform:scale(1.018);border-color:rgba(201,161,59,.88);background:linear-gradient(135deg,rgba(201,161,59,.08),rgba(47,107,79,.12));box-shadow:0 0 0 3px rgba(47,107,79,.18),0 12px 32px rgba(23,59,47,.3);outline:0}
+    .funnel-hotspot:hover span,.funnel-hotspot:focus-visible span{opacity:1;transform:translate(-50%,0)}
+    .funnel-phase-controls{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;margin-top:1rem}
+    .funnel-phase-controls button{min-width:0;min-height:48px;padding:.7rem .8rem;border:1px solid rgba(30,255,255,.24);border-radius:9px;background:rgba(30,255,255,.05);color:var(--lg);font:700 .75rem/1.25 var(--font-main);cursor:pointer}
+    .funnel-phase-controls button:hover,.funnel-phase-controls button:focus-visible,.funnel-phase-controls button.is-active{border-color:var(--cyan);background:rgba(30,255,255,.12);color:var(--white);outline:2px solid transparent}
+    .funnel-phase-card{min-height:142px;margin-top:1rem;padding:1.25rem 1.4rem;border-left:4px solid var(--cyan);border-radius:4px 12px 12px 4px;background:rgba(30,255,255,.06);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+    .funnel-phase-card>span{display:block;margin-bottom:.35rem;color:var(--cyan);font-size:.68rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .funnel-phase-card h3{color:var(--white);font-family:var(--font-main);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.25}
+    .funnel-phase-card p{max-width:880px;margin-top:.55rem;color:var(--lg);font-size:.88rem;line-height:1.65}
+    .funnel-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem}
+    .funnel-actions .funnel-expand{flex:0 0 auto;min-height:44px;cursor:zoom-in}
+    .funnel-actions>span{color:var(--gray);font-size:.72rem;text-align:right}
 
     /* ── Enlace Emprende365 Moodle ── */
     .tool-badge{
@@ -1118,6 +1140,11 @@ html[data-theme="institucional"] .manual-nav{background:rgba(255,255,255,.92);bo
 html[data-theme="institucional"] .academy-card{background:linear-gradient(135deg,rgba(230,211,154,.62),rgba(247,244,234,.97) 52%,rgba(255,255,255,.96));border:1px solid rgba(201,161,59,.46);box-shadow:0 22px 55px rgba(112,86,25,.12)}
 html[data-theme="institucional"] .academy-badge{background:rgba(255,255,255,.72);border-color:rgba(201,161,59,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
 html[data-theme="institucional"] .academy-audience .card{background:rgba(255,255,255,.76);border-color:rgba(201,161,59,.28)}
+html[data-theme="institucional"] .ecosystem-funnel{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(239,242,233,.92));border-color:rgba(47,79,47,.22);box-shadow:0 22px 55px rgba(23,59,47,.09)}
+html[data-theme="institucional"] .funnel-phase-card{background:rgba(47,107,79,.065);border-left-color:var(--uaemex-gold)}
+html[data-theme="institucional"] .funnel-phase-card>span{color:#8a6618}
+html[data-theme="institucional"] .funnel-phase-controls button{background:rgba(255,255,255,.82);border-color:rgba(47,79,47,.2);color:#52635a}
+html[data-theme="institucional"] .funnel-phase-controls button:hover,html[data-theme="institucional"] .funnel-phase-controls button:focus-visible,html[data-theme="institucional"] .funnel-phase-controls button.is-active{background:rgba(201,161,59,.14);border-color:var(--uaemex-gold);color:var(--uaemex-deep-green)}
 
 @media(max-width:760px){
     .theme-options{grid-template-columns:1fr}
@@ -1134,10 +1161,26 @@ html[data-theme="institucional"] .academy-audience .card{background:rgba(255,255
     .hamburger{z-index:1100}
     .nav-group-toggle{min-height:48px;padding-block:.75rem}
     .nav-group-content .nav-item{min-height:46px}
+    .ecosystem-funnel{padding:.55rem;border-radius:14px}
+    .funnel-image-stage{border-radius:9px}
+    .ecosystem-funnel-img{border-radius:8px}
+    .funnel-hotspot{border-radius:8px}
+    .funnel-hotspot span{display:none}
+    .funnel-phase-controls{display:grid;grid-template-columns:1fr}
+    .funnel-phase-controls button{width:100%;min-height:52px}
+    .funnel-phase-card{min-height:0;padding:1rem}
+    .funnel-actions{align-items:stretch;flex-direction:column}
+    .funnel-actions .funnel-expand{width:100%}
+    .funnel-actions>span{text-align:left}
 }
 
 @media(max-width:900px){
     body.sidebar-open .hamburger{opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-10px)}
     .hamburger{transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
     .sidebar-head{min-height:88px;padding-left:1.2rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .funnel-visual-wrap.reveal{transform:none;transition:opacity .01ms}
+    .funnel-hotspot{transition:none}
 }

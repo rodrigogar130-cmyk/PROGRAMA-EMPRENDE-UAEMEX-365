@@ -401,6 +401,51 @@ fomentoDetailDialog?.addEventListener('close', () => {
   if (fomentoDetailPreviousFocus?.isConnected) fomentoDetailPreviousFocus.focus();
 });
 
+// ── ETAPAS INTERACTIVAS DEL EMBUDO INSTITUCIONAL ──
+const funnelPhaseData = {
+  'fase-1': {
+    eyebrow: 'Primera fase',
+    title: 'Fomento Empresarial',
+    text: 'Identificación de talento, cultura emprendedora, concursos, capacitación inicial y generación de evidencias tempranas.'
+  },
+  'fase-2': {
+    eyebrow: 'Segunda fase',
+    title: 'Unidades de Emprendimiento',
+    text: 'Activación de equipos, formación mediante Emprende UAEMéx 365, Hackathon, Bootcamp, Demo Day y desarrollo de proyectos con evidencia.'
+  },
+  'fase-3': {
+    eyebrow: 'Tercera fase',
+    title: 'Incubación de la Innovación',
+    text: 'Profesionalización, modelo de negocio, alineación, escalamiento y canalización hacia salida al mercado.'
+  }
+};
+const funnelPhaseButtons = document.querySelectorAll('#ecosistema [data-phase]');
+const funnelPhaseEyebrow = document.getElementById('funnelPhaseEyebrow');
+const funnelPhaseTitle = document.getElementById('funnelPhaseTitle');
+const funnelPhaseText = document.getElementById('funnelPhaseText');
+
+function activateFunnelPhase(phase) {
+  const phaseData = funnelPhaseData[phase];
+  if (!phaseData) return;
+  funnelPhaseEyebrow.textContent = phaseData.eyebrow;
+  funnelPhaseTitle.textContent = phaseData.title;
+  funnelPhaseText.textContent = phaseData.text;
+  funnelPhaseButtons.forEach(button => {
+    const isActive = button.dataset.phase === phase;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+funnelPhaseButtons.forEach(button => {
+  button.addEventListener('click', () => activateFunnelPhase(button.dataset.phase));
+  button.addEventListener('focus', () => activateFunnelPhase(button.dataset.phase));
+  if (button.classList.contains('funnel-hotspot')) {
+    button.addEventListener('mouseenter', () => activateFunnelPhase(button.dataset.phase));
+  }
+});
+activateFunnelPhase('fase-1');
+
 // ── VISOR DEL ESQUEMA DEL EVENTO ──
 const eventImageModal = document.getElementById('eventImageModal');
 const eventImageTriggers = document.querySelectorAll('[data-event-image]');
@@ -408,6 +453,7 @@ const closeEventScheme = document.getElementById('closeEventScheme');
 const eventImageScroll = eventImageModal?.querySelector('.event-image-scroll');
 const eventModalImage = eventImageScroll?.querySelector('img');
 const eventModalTitle = document.getElementById('eventImageModalTitle');
+const eventModalTag = document.getElementById('eventImageModalTag');
 let eventSchemePreviousFocus = null;
 
 function abrirEsquemaEvento(trigger) {
@@ -415,10 +461,14 @@ function abrirEsquemaEvento(trigger) {
   eventSchemePreviousFocus = document.activeElement;
   if (trigger && eventModalImage) {
     eventModalImage.src = trigger.dataset.eventImage;
-    eventModalImage.alt = `${trigger.querySelector('img')?.alt || 'Imagen del Evento Anual DDE'} en tamaño completo`;
+    const sourceImageAlt = trigger.querySelector('img')?.alt || trigger.dataset.eventAlt || 'Imagen ampliada';
+    eventModalImage.alt = `${sourceImageAlt} en tamaño completo`;
   }
   if (trigger?.dataset.eventTitle && eventModalTitle) {
     eventModalTitle.textContent = trigger.dataset.eventTitle;
+  }
+  if (eventModalTag) {
+    eventModalTag.textContent = trigger?.dataset.eventTag || 'Evento Anual DDE';
   }
   eventImageModal.classList.add('open');
   eventImageModal.setAttribute('aria-hidden', 'false');
