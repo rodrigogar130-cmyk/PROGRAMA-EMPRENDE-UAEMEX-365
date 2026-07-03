@@ -831,7 +831,7 @@
     <div class="events-grid reveal">
       <article class="event-card event-card-featured">
         <div class="event-content">
-          <div class="event-date"><span aria-hidden="true">📅</span> Noviembre 2026</div>
+          <div class="event-date"><span aria-hidden="true">📅</span> 15 y 16 de octubre de 2026</div>
           <div class="tag tag-mag">Evento destacado</div>
           <h3>Evento Anual de la DDE</h3>
           <p>Una experiencia institucional que integra formación, talento universitario, retos reales, vinculación, aliados y networking estratégico en siete escenarios temáticos.</p>
@@ -839,20 +839,46 @@
             <span>📍 CU UAEMéx</span>
             <span>⏱️ 2 días</span>
             <span>🎯 7 escenarios</span>
+            <span>📅 Octubre 2026</span>
           </div>
         </div>
         <div class="event-visual">
-          <button class="event-image-trigger" type="button" id="openEventScheme" aria-label="Ver el esquema general del Evento Anual de la DDE en tamaño completo">
-            <img src="imgenes/evento-anual-dde.png" alt="Esquema General del Evento Anual de la DDE" loading="lazy">
+          <button class="event-image-trigger event-image-trigger-main" type="button" data-event-image="imgenes/evento-anual-dde-2026.jpg" data-event-title="Evento Anual DDE UAEMéx" aria-label="Ampliar imagen principal del Evento Anual de la DDE">
+            <img src="imgenes/evento-anual-dde-2026.jpg" alt="Información general del Evento Anual DDE UAEMéx, 15 y 16 de octubre" loading="lazy">
             <span>Haz clic para ampliar</span>
           </button>
         </div>
-      </article>
-
-      <article class="event-card event-placeholder" aria-label="Espacio disponible para futuros eventos">
-        <span class="event-placeholder-icon" aria-hidden="true">📅</span>
-        <h3>Próximamente</h3>
-        <p>Este espacio está preparado para incorporar futuros eventos de la DDE.</p>
+        <section class="event-details" aria-labelledby="eventDetailsTitle">
+          <div class="event-details-heading">
+            <div>
+              <span class="tag">Información complementaria</span>
+              <h4 id="eventDetailsTitle">Detalles del evento</h4>
+            </div>
+            <p>Haz clic en las imágenes para ampliar</p>
+          </div>
+          <div class="event-details-grid">
+            <article class="event-detail-card">
+              <button class="event-image-trigger" type="button" data-event-image="imgenes/evento-anual-escenarios.jpg" data-event-title="Escenarios temáticos" aria-label="Ampliar imagen de los siete escenarios temáticos">
+                <img src="imgenes/evento-anual-escenarios.jpg" alt="Los siete escenarios temáticos del Evento Anual DDE" loading="lazy">
+                <span>Ampliar</span>
+              </button>
+              <div class="event-detail-copy">
+                <h5>Escenarios temáticos</h5>
+                <p>Los siete escenarios temáticos articulan cultura, deporte, tecnología, diseño, investigación aplicada, gobernanza y bienestar integral.</p>
+              </div>
+            </article>
+            <article class="event-detail-card">
+              <button class="event-image-trigger" type="button" data-event-image="imgenes/evento-anual-mapa.jpg" data-event-title="Mapa de escenarios" aria-label="Ampliar mapa de escenarios en Ciudad Universitaria UAEMéx">
+                <img src="imgenes/evento-anual-mapa.jpg" alt="Mapa de distribución de escenarios en Ciudad Universitaria UAEMéx" loading="lazy">
+                <span>Ampliar</span>
+              </button>
+              <div class="event-detail-copy">
+                <h5>Mapa de escenarios</h5>
+                <p>El mapa permite visualizar la distribución de escenarios dentro de Ciudad Universitaria UAEMéx.</p>
+              </div>
+            </article>
+          </div>
+        </section>
       </article>
     </div>
   </section>
@@ -1023,12 +1049,12 @@
     <div class="event-image-toolbar">
       <div>
         <span class="tag">Evento Anual DDE</span>
-        <h2 id="eventImageModalTitle">Esquema general</h2>
+        <h2 id="eventImageModalTitle">Evento Anual DDE UAEMéx</h2>
       </div>
-      <button class="event-image-close" id="closeEventScheme" type="button" aria-label="Cerrar esquema">Cerrar</button>
+      <button class="event-image-close" id="closeEventScheme" type="button" aria-label="Cerrar visor de imagen"><span aria-hidden="true">×</span></button>
     </div>
     <div class="event-image-scroll">
-      <img src="imgenes/evento-anual-dde.png" alt="Esquema General del Evento Anual de la DDE en tamaño completo">
+      <img src="imgenes/evento-anual-dde-2026.jpg" alt="Información general del Evento Anual DDE UAEMéx en tamaño completo">
     </div>
   </div>
 </div>

@@ -403,14 +403,23 @@ fomentoDetailDialog?.addEventListener('close', () => {
 
 // ── VISOR DEL ESQUEMA DEL EVENTO ──
 const eventImageModal = document.getElementById('eventImageModal');
-const openEventScheme = document.getElementById('openEventScheme');
+const eventImageTriggers = document.querySelectorAll('[data-event-image]');
 const closeEventScheme = document.getElementById('closeEventScheme');
 const eventImageScroll = eventImageModal?.querySelector('.event-image-scroll');
+const eventModalImage = eventImageScroll?.querySelector('img');
+const eventModalTitle = document.getElementById('eventImageModalTitle');
 let eventSchemePreviousFocus = null;
 
-function abrirEsquemaEvento() {
+function abrirEsquemaEvento(trigger) {
   if (!eventImageModal) return;
   eventSchemePreviousFocus = document.activeElement;
+  if (trigger && eventModalImage) {
+    eventModalImage.src = trigger.dataset.eventImage;
+    eventModalImage.alt = `${trigger.querySelector('img')?.alt || 'Imagen del Evento Anual DDE'} en tamaño completo`;
+  }
+  if (trigger?.dataset.eventTitle && eventModalTitle) {
+    eventModalTitle.textContent = trigger.dataset.eventTitle;
+  }
   eventImageModal.classList.add('open');
   eventImageModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
@@ -429,7 +438,9 @@ function cerrarEsquemaEvento() {
   eventSchemePreviousFocus?.focus();
 }
 
-openEventScheme?.addEventListener('click', abrirEsquemaEvento);
+eventImageTriggers.forEach(trigger => {
+  trigger.addEventListener('click', () => abrirEsquemaEvento(trigger));
+});
 closeEventScheme?.addEventListener('click', cerrarEsquemaEvento);
 
 eventImageModal?.addEventListener('click', event => {
