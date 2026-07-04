@@ -401,6 +401,204 @@ fomentoDetailDialog?.addEventListener('close', () => {
   if (fomentoDetailPreviousFocus?.isConnected) fomentoDetailPreviousFocus.focus();
 });
 
+// ── AGENDA OPERATIVA UE 2026B ──
+// Edita este arreglo para cambiar fechas, títulos, horarios, categorías o detalles.
+const agendaCalendarData = [
+  { start:'2026-07-06', title:'Sesión Q&A / RUE Emprende Academy 365', time:'12:00 pm', category:'coordinacion', status:'En proceso', objective:'Sesión de preguntas y respuestas con Responsables de Unidades de Emprendimiento sobre Emprende Academy 365.' },
+  { start:'2026-07-07', title:'Ajustes de convocatoria y contenidos Academy 365', category:'convocatoria', status:'En proceso', objective:'Ajustes a la convocatoria Emprende UAEMéx, mejora de plantillas y actividades de Emprende Academy 365 y revisión del módulo de finanzas.' },
+  { start:'2026-07-08', end:'2026-07-09', title:'Junta de alineación con aliados estratégicos', time:'10:00 am', category:'coordinacion', status:'En proceso', objective:'Alineación con aliados estratégicos para Inspiration Days y Banco de Retos.' },
+  { start:'2026-07-15', title:'Curso de Digitalización y RRSS', category:'formacion', status:'En proceso', objective:'Curso dirigido a emprendedores de Atlacomulco sobre digitalización y redes sociales.' },
+  { start:'2026-07-16', title:'Integración DDE', time:'9:00 am a 6:00 pm', category:'institucional', status:'En proceso', objective:'Jornada de integración de la DDE en el Edificio de Educación a Distancia.' },
+  { start:'2026-07-17', title:'Vacaciones', category:'vacaciones', status:'En proceso', objective:'Periodo vacacional.' },
+  { start:'2026-07-20', end:'2026-07-24', title:'Vacaciones', category:'vacaciones', status:'En proceso', objective:'Periodo vacacional.' },
+  { start:'2026-08-03', title:'Vacaciones', category:'vacaciones', status:'En proceso', objective:'Periodo vacacional.' },
+  { start:'2026-08-04', title:'Publicación de convocatoria Emprende UAEMéx 365', category:'convocatoria', status:'En proceso', objective:'Apertura formal de la convocatoria Emprende UAEMéx 365.' },
+  { start:'2026-08-05', title:'Sesión de trabajo DDE con RPE, RUE y RUII', category:'coordinacion', status:'En proceso', objective:'Sesión de coordinación en CIC Toluca, Ciudad Universitaria.' },
+  { start:'2026-08-06', title:'Sesión de trabajo DDE en Ecatepec', category:'coordinacion', status:'En proceso', objective:'Sesión de trabajo con RPE, RUE y RUII en Ecatepec.' },
+  { start:'2026-08-10', title:'Nuevo módulo de Finanzas en Academy 365', category:'formacion', status:'En proceso', objective:'Publicación del nuevo módulo de Finanzas en Emprende Academy 365.' },
+  { start:'2026-08-13', end:'2026-08-14', title:'Promoción de servicios SEVEPE', category:'convocatoria', status:'En proceso', objective:'Promoción de servicios de la SEVEPE en el Ágora del CENIDE de la Facultad de Humanidades.' },
+  { start:'2026-08-24', end:'2026-08-28', title:'Inspiration Days', time:'Pendiente', category:'activacion', status:'En proceso', objective:'Jornadas de inspiración y activación con participación de aliados y empresarios.' },
+  { start:'2026-08-31', title:'Fecha límite de registro', category:'convocatoria', status:'En proceso', objective:'Cierre de registro de la convocatoria Emprende UAEMéx 365.' },
+  { start:'2026-09-02', title:'Inicio de actividades Emprende Academy 365', category:'formacion', status:'En proceso', objective:'Inicio formal de actividades en la plataforma Emprende Academy 365.' },
+  { start:'2026-09-09', end:'2026-09-10', title:'Hackathon con el Banco de Retos', category:'activacion', status:'En proceso', objective:'Activación de equipos mediante retos reales del Banco de Retos.' },
+  { start:'2026-09-15', end:'2026-09-16', title:'Evento anual DDE en CU-Toluca', category:'institucional', status:'En proceso', objective:'Evento anual de la Dirección de Desarrollo Empresarial en Ciudad Universitaria Toluca.' },
+  { start:'2026-10-15', end:'2026-10-16', title:'Evento Anual DDE', category:'institucional', status:'En proceso', objective:'Jornada institucional de integración y presentación de proyectos.' },
+  { start:'2026-10-15', end:'2026-10-16', title:'Bootcamp Emprende', category:'activacion', status:'En proceso', objective:'Formación intensiva y fortalecimiento de proyectos participantes.' }
+];
+const agendaMonths = [
+  { year:2026, month:6, name:'Julio' },
+  { year:2026, month:7, name:'Agosto' },
+  { year:2026, month:8, name:'Septiembre' },
+  { year:2026, month:9, name:'Octubre' }
+];
+const agendaCategoryLabels = {
+  coordinacion:'Reunión / Coordinación',
+  convocatoria:'Convocatoria',
+  formacion:'Formación',
+  activacion:'Activación',
+  institucional:'Evento institucional',
+  vacaciones:'Vacaciones'
+};
+const agendaStatusClasses = {
+  'Terminado':'status-done',
+  'En proceso':'status-progress',
+  'No realizado':'status-pending'
+};
+const agendaWeekdays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const agendaMonthNames = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const agendaCalendar = document.getElementById('agendaCalendar');
+const agendaEventDialog = document.getElementById('agendaEventDialog');
+const closeAgendaDialog = document.getElementById('closeAgendaDialog');
+const agendaDialogType = document.getElementById('agendaDialogType');
+const agendaDialogTitle = document.getElementById('agendaDialogTitle');
+const agendaDialogDate = document.getElementById('agendaDialogDate');
+const agendaDialogTime = document.getElementById('agendaDialogTime');
+const agendaDialogObjective = document.getElementById('agendaDialogObjective');
+let agendaPreviousFocus = null;
+
+function parseAgendaDate(dateString) {
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day, 12);
+}
+
+function formatAgendaDate(calendarEvent) {
+  const start = parseAgendaDate(calendarEvent.start);
+  const end = parseAgendaDate(calendarEvent.end || calendarEvent.start);
+  if (start.getTime() === end.getTime()) return `${start.getDate()} de ${agendaMonthNames[start.getMonth()]} de ${start.getFullYear()}`;
+  if (start.getMonth() === end.getMonth()) return `${start.getDate()} al ${end.getDate()} de ${agendaMonthNames[start.getMonth()]} de ${start.getFullYear()}`;
+  return `${start.getDate()} de ${agendaMonthNames[start.getMonth()]} al ${end.getDate()} de ${agendaMonthNames[end.getMonth()]} de ${end.getFullYear()}`;
+}
+
+function createAgendaElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
+}
+
+function openAgendaEvent(calendarEvent, trigger) {
+  if (!agendaEventDialog) return;
+  agendaPreviousFocus = trigger || document.activeElement;
+  agendaDialogType.textContent = `${agendaCategoryLabels[calendarEvent.category] || 'Actividad'} · ${calendarEvent.status || 'No realizado'}`;
+  agendaDialogTitle.textContent = calendarEvent.title;
+  agendaDialogDate.textContent = formatAgendaDate(calendarEvent);
+  agendaDialogTime.textContent = calendarEvent.time || 'Horario por confirmar';
+  agendaDialogObjective.textContent = calendarEvent.objective || 'Información por confirmar.';
+  if (!agendaEventDialog.open) agendaEventDialog.showModal();
+  document.body.classList.add('modal-open');
+  closeAgendaDialog?.focus();
+}
+
+function closeAgendaEvent() {
+  if (agendaEventDialog?.open) agendaEventDialog.close();
+}
+
+function renderAgendaCalendar() {
+  if (!agendaCalendar) return;
+  agendaCalendar.replaceChildren();
+
+  agendaMonths.forEach(({ year, month, name }) => {
+    const monthEvents = agendaCalendarData.filter(calendarEvent => {
+      const start = parseAgendaDate(calendarEvent.start);
+      return start.getFullYear() === year && start.getMonth() === month;
+    });
+    const monthBlock = createAgendaElement('article', 'academic-month');
+    const monthHeader = createAgendaElement('header', 'academic-month-header');
+    const monthName = createAgendaElement('h3', '', name);
+    const monthYear = createAgendaElement('span', '', `${year} · ${monthEvents.length} actividades`);
+    monthHeader.append(monthName, monthYear);
+
+    const scrollArea = createAgendaElement('div', 'academic-month-scroll');
+    scrollArea.tabIndex = 0;
+    scrollArea.setAttribute('aria-label', `Calendario de ${name} de ${year}`);
+    const calendarInner = createAgendaElement('div', 'academic-month-inner');
+    const weekdayHeader = createAgendaElement('div', 'academic-weekdays');
+    agendaWeekdays.forEach(day => weekdayHeader.appendChild(createAgendaElement('span', '', day)));
+    calendarInner.appendChild(weekdayHeader);
+
+    const firstDay = new Date(year, month, 1, 12);
+    const mondayOffset = (firstDay.getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0, 12).getDate();
+    const totalCells = Math.ceil((mondayOffset + daysInMonth) / 7) * 7;
+
+    for (let weekIndex = 0; weekIndex < totalCells / 7; weekIndex += 1) {
+      const week = createAgendaElement('div', 'academic-week');
+      const weekStart = new Date(year, month, 1 - mondayOffset + weekIndex * 7, 12);
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 6);
+
+      for (let dayIndex = 0; dayIndex < 7; dayIndex += 1) {
+        const date = new Date(weekStart);
+        date.setDate(weekStart.getDate() + dayIndex);
+        const dayNumber = createAgendaElement('span', 'academic-day-number', String(date.getDate()));
+        dayNumber.style.gridColumn = String(dayIndex + 1);
+        if (date.getMonth() !== month) dayNumber.classList.add('is-outside');
+        week.appendChild(dayNumber);
+      }
+
+      const segments = monthEvents.map(calendarEvent => {
+        const eventStart = parseAgendaDate(calendarEvent.start);
+        const eventEnd = parseAgendaDate(calendarEvent.end || calendarEvent.start);
+        if (eventEnd < weekStart || eventStart > weekEnd) return null;
+        const segmentStart = eventStart > weekStart ? eventStart : weekStart;
+        const segmentEnd = eventEnd < weekEnd ? eventEnd : weekEnd;
+        const startColumn = Math.round((segmentStart - weekStart) / 86400000);
+        const endColumn = Math.round((segmentEnd - weekStart) / 86400000);
+        return { calendarEvent, startColumn, endColumn };
+      }).filter(Boolean).sort((a, b) => a.startColumn - b.startColumn || b.endColumn - a.endColumn);
+
+      const occupiedLanes = [];
+      segments.forEach(segment => {
+        let lane = occupiedLanes.findIndex(columns => {
+          for (let column = segment.startColumn; column <= segment.endColumn; column += 1) {
+            if (columns[column]) return false;
+          }
+          return true;
+        });
+        if (lane === -1) {
+          lane = occupiedLanes.length;
+          occupiedLanes.push(Array(7).fill(false));
+        }
+        for (let column = segment.startColumn; column <= segment.endColumn; column += 1) occupiedLanes[lane][column] = true;
+
+        const eventButton = createAgendaElement('button', 'academic-event');
+        eventButton.type = 'button';
+        eventButton.dataset.category = segment.calendarEvent.category;
+        eventButton.dataset.status = segment.calendarEvent.status || 'No realizado';
+        eventButton.classList.add(agendaStatusClasses[eventButton.dataset.status] || 'status-pending');
+        eventButton.style.gridColumn = `${segment.startColumn + 1} / span ${segment.endColumn - segment.startColumn + 1}`;
+        eventButton.style.gridRow = String(lane + 2);
+        const dateLabel = formatAgendaDate(segment.calendarEvent);
+        eventButton.title = `${dateLabel} · ${segment.calendarEvent.title} · ${eventButton.dataset.status}${segment.calendarEvent.time ? ` · ${segment.calendarEvent.time}` : ''}`;
+        eventButton.setAttribute('aria-label', `Ver detalle: ${eventButton.title}`);
+        eventButton.append(
+          createAgendaElement('strong', 'academic-event-title', segment.calendarEvent.title),
+          createAgendaElement('small', 'academic-event-time', segment.calendarEvent.time || agendaCategoryLabels[segment.calendarEvent.category]),
+          createAgendaElement('span', 'academic-event-status', eventButton.dataset.status)
+        );
+        eventButton.addEventListener('click', () => openAgendaEvent(segment.calendarEvent, eventButton));
+        week.appendChild(eventButton);
+      });
+      calendarInner.appendChild(week);
+    }
+
+    scrollArea.appendChild(calendarInner);
+    monthBlock.append(monthHeader, scrollArea);
+    agendaCalendar.appendChild(monthBlock);
+  });
+}
+
+renderAgendaCalendar();
+
+closeAgendaDialog?.addEventListener('click', closeAgendaEvent);
+agendaEventDialog?.addEventListener('click', event => {
+  if (event.target === agendaEventDialog) closeAgendaEvent();
+});
+agendaEventDialog?.addEventListener('close', () => {
+  document.body.classList.remove('modal-open');
+  if (agendaPreviousFocus?.isConnected) agendaPreviousFocus.focus();
+});
+
 // ── ETAPAS INTERACTIVAS DEL EMBUDO INSTITUCIONAL ──
 const funnelPhaseData = {
   'fase-1': {

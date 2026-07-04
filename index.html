@@ -78,6 +78,7 @@
         <a class="nav-item" data-section="metodologia"><span class="nav-icon">⚡</span>Metodología 365</a>
         <a class="nav-item" data-section="actividades"><span class="nav-icon">🚀</span>Actividades de activación</a>
         <a class="nav-item" data-section="herramientas"><span class="nav-icon">🛠️</span>Herramientas digitales</a>
+        <a class="nav-item" data-section="agenda-ue"><span class="nav-icon">📅</span>Agenda UE 2026B</a>
       </div>
     </div>
 
@@ -944,6 +945,33 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ══════════════ AGENDA UE 2026B ══════════════ -->
+  <section class="section agenda-ue-section" id="agenda-ue">
+    <header class="agenda-hero reveal">
+      <span class="agenda-kicker">Dirección de Desarrollo Empresarial · UAEMéx</span>
+      <h2>CALENDARIO DE ACTIVIDADES 2026B</h2>
+      <p>PROGRAMA EMPRENDE 365</p>
+      <div class="agenda-hero-rule" aria-hidden="true"></div>
+    </header>
+
+    <div class="agenda-legend reveal" aria-label="Estados de las actividades">
+      <strong>Estado de las actividades</strong>
+      <span><i class="legend-status-done"></i>Terminado</span>
+      <span><i class="legend-status-progress"></i>En proceso</span>
+      <span><i class="legend-status-pending"></i>No realizado</span>
+    </div>
+
+    <p class="agenda-mobile-hint">Desliza horizontalmente dentro de cada mes para consultar todos los días.</p>
+    <div class="academic-calendar reveal" id="agendaCalendar" aria-live="polite"></div>
+
+    <dialog class="agenda-dialog" id="agendaEventDialog" aria-labelledby="agendaDialogTitle">
+      <div class="agenda-dialog-shell">
+        <header class="agenda-dialog-header"><div><span id="agendaDialogType">Actividad</span><h2 id="agendaDialogTitle">Detalle de la actividad</h2></div><button id="closeAgendaDialog" type="button" aria-label="Cerrar detalle de actividad">×</button></header>
+        <div class="agenda-dialog-body"><div class="agenda-dialog-meta"><span id="agendaDialogDate"></span><span id="agendaDialogTime"></span></div><h3>Objetivo</h3><p id="agendaDialogObjective"></p></div>
+      </div>
+    </dialog>
   </section>
 
   <!-- ══════════════ VER TEMAS ══════════════ -->
