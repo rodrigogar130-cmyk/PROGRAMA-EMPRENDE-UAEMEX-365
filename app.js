@@ -404,9 +404,10 @@ fomentoDetailDialog?.addEventListener('close', () => {
 // ── AGENDA OPERATIVA UE 2026B ──
 // Edita este arreglo para cambiar fechas, títulos, horarios, categorías o detalles.
 const agendaCalendarData = [
-  { start:'2026-07-06', title:'Sesión Q&A / RUE Emprende Academy 365', time:'12:00 pm', category:'coordinacion', status:'En proceso', objective:'Sesión de preguntas y respuestas con Responsables de Unidades de Emprendimiento sobre Emprende Academy 365.' },
-  { start:'2026-07-07', title:'Ajustes de convocatoria y contenidos Academy 365', category:'convocatoria', status:'En proceso', objective:'Ajustes a la convocatoria Emprende UAEMéx, mejora de plantillas y actividades de Emprende Academy 365 y revisión del módulo de finanzas.' },
-  { start:'2026-07-08', end:'2026-07-09', title:'Junta de alineación con aliados estratégicos', time:'10:00 am', category:'coordinacion', status:'En proceso', objective:'Alineación con aliados estratégicos para Inspiration Days y Banco de Retos.' },
+  { start:'2026-07-06', title:'Sesión Q&A / RUE Emprende Academy 365', time:'12:00 pm', category:'coordinacion', status:'Terminado', objective:'Sesión de preguntas y respuestas con Responsables de Unidades de Emprendimiento sobre Emprende Academy 365.' },
+  { start:'2026-07-07', title:'Ajustes de convocatoria Emprende UAEMéx / mejoras a plantillas y actividades de Emprende Academy 365, módulo de finanzas', category:'convocatoria', status:'Terminado', objective:'Ajustes a la convocatoria Emprende UAEMéx, mejora de plantillas y actividades de Emprende Academy 365 y revisión del módulo de finanzas.' },
+  { start:'2026-07-09', title:'Junta de alineación con aliados estratégicos', time:'10:00 am', category:'coordinacion', status:'En proceso', objective:'Inspiration Days y Banco de Retos.' },
+  { start:'2026-07-13', title:"Reunión con TIC's", time:'10:00 am', category:'plataforma', status:'En proceso', objective:"Reunión con el área de TIC's para hablar sobre la plataforma Emprende Academy 365. Lugar: CU." },
   { start:'2026-07-15', title:'Curso de Digitalización y RRSS', category:'formacion', status:'En proceso', objective:'Curso dirigido a emprendedores de Atlacomulco sobre digitalización y redes sociales.' },
   { start:'2026-07-16', title:'Integración DDE', time:'9:00 am a 6:00 pm', category:'institucional', status:'En proceso', objective:'Jornada de integración de la DDE en el Edificio de Educación a Distancia.' },
   { start:'2026-07-17', title:'Vacaciones', category:'vacaciones', status:'En proceso', objective:'Periodo vacacional.' },
@@ -433,6 +434,7 @@ const agendaMonths = [
 ];
 const agendaCategoryLabels = {
   coordinacion:'Reunión / Coordinación',
+  plataforma:'Coordinación / Plataforma',
   convocatoria:'Convocatoria',
   formacion:'Formación',
   activacion:'Activación',
