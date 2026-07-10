@@ -794,6 +794,10 @@
     .tool-badge{display:inline-flex;max-width:100%;min-width:0;align-items:center;gap:.5rem;background:rgba(30,255,255,.08);border:1px solid rgba(30,255,255,.25);border-radius:999px;padding:.3rem .9rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;box-sizing:border-box
     }
     .beta-tag{background:rgba(226, 218, 226, 0.1);border:1px solid rgba(255,3,255,.3);color:var(--mag);padding:.15rem .5rem;border-radius:4px;font-size:.65rem;letter-spacing:.08em;margin-left:.5rem}
+    .simulator-link{min-height:44px;padding:.45rem .95rem;text-decoration:none;cursor:pointer;text-transform:none;letter-spacing:.04em;line-height:1.2;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+    .simulator-link:hover,.simulator-link:focus-visible{transform:translateY(-1px);border-color:rgba(30,255,255,.62);background:rgba(30,255,255,.14);box-shadow:0 10px 24px rgba(30,255,255,.12);outline:none}
+    .simulator-link:focus-visible{outline:2px solid rgba(30,255,255,.45);outline-offset:3px}
+    .simulator-link-label{min-width:0;white-space:normal;overflow-wrap:anywhere}
     .feature-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:1.2rem}
     .feature-list li{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--lg)}
     .feature-list li::before{content:'→';color:var(--cyan);flex-shrink:0}
@@ -958,6 +962,7 @@
         .digital-tools-grid{gap:1rem}
         .digital-tool-card{width:100%;max-width:100%;padding:1.25rem 1rem}
         .digital-tool-heading{gap:.6rem}
+        .simulator-link{width:100%;justify-content:center;min-height:48px;padding:.65rem .85rem;text-align:center}
         .simulator-values{grid-template-columns:1fr}
         .survey-summary{padding:1rem}
         .survey-summary>div{gap:.65rem}
@@ -1075,6 +1080,7 @@ html[data-theme="institucional"] .fm-pulse i{background:var(--uaemex-gold);box-s
 html[data-theme="institucional"] .t-pill{border-color:rgba(201,161,59,.62);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .t-pill .arrow{color:#9b7418}
 html[data-theme="institucional"] .tool-badge,html[data-theme="institucional"] .ind-chip,html[data-theme="institucional"] .event-date{border-color:rgba(201,161,59,.58);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
+html[data-theme="institucional"] .simulator-link:hover,html[data-theme="institucional"] .simulator-link:focus-visible{border-color:rgba(183,134,30,.9);background:rgba(232,217,168,.68);box-shadow:0 10px 24px rgba(139,101,20,.16);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .route-step,html[data-theme="institucional"] .area-icon{border-color:rgba(201,161,59,.58);background:rgba(232,217,168,.48);color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .area-label,html[data-theme="institucional"] .road-title,html[data-theme="institucional"] .act-label{color:var(--uaemex-deep-green)}
 html[data-theme="institucional"] .card-cyan{border-color:rgba(47,93,70,.35)}
