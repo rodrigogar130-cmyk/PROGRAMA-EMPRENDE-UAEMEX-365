@@ -719,6 +719,18 @@
     .academic-month-header{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;padding:1.15rem 1.35rem;border-bottom:3px solid var(--agenda-gold);background:linear-gradient(135deg,var(--agenda-green),var(--agenda-mid));color:#fff}
     .academic-month-header h3{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:.04em;line-height:1}
     .academic-month-header span{color:#f0dfae;font-size:.68rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+    .agenda-month-notices{display:grid;gap:.75rem;padding:1rem 1.15rem;border-bottom:1px solid rgba(185,146,47,.24);background:rgba(185,146,47,.08)}
+    .agenda-month-notice{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.9rem;width:100%;min-width:0;padding:.85rem 1rem;border:1px solid rgba(185,146,47,.34);border-left-width:5px;border-radius:10px;background:#f2c94c;color:#1f2a24;font-family:var(--font-main);text-align:left;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.14);transition:transform .18s ease,box-shadow .18s ease}
+    .agenda-month-notice:hover,.agenda-month-notice:focus-visible{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.2);outline:2px solid var(--agenda-gold);outline-offset:2px}
+    .agenda-month-notice-date{font-size:.72rem;font-weight:900;letter-spacing:.05em;line-height:1.25;text-transform:uppercase}
+    .agenda-month-notice-content{display:grid;min-width:0;gap:.12rem}
+    .agenda-month-notice-content small{font-size:.58rem;font-weight:900;letter-spacing:.08em;line-height:1.25;text-transform:uppercase;opacity:.74}
+    .agenda-month-notice-content strong{min-width:0;font-size:.9rem;font-weight:900;line-height:1.25;overflow-wrap:anywhere}
+    .agenda-month-notice-content span{min-width:0;font-size:.73rem;font-weight:700;line-height:1.35;overflow-wrap:anywhere;opacity:.88}
+    .agenda-month-notice-status{justify-self:end;padding:.18rem .45rem;border-radius:999px;background:rgba(255,255,255,.28);font-size:.56rem;font-weight:900;letter-spacing:.04em;line-height:1.2;text-transform:uppercase;white-space:nowrap}
+    .agenda-month-notice.status-done{background:#1f7a4d;border-color:#1f7a4d;color:#fff}
+    .agenda-month-notice.status-progress{background:#f2c94c;border-color:#b9922f;color:#1f2a24}
+    .agenda-month-notice.status-pending{background:#d64545;border-color:#a83232;color:#fff}
     .academic-month-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-color:var(--agenda-gold) rgba(255,255,255,.06)}
     .academic-month-scroll:focus-visible{outline:3px solid rgba(185,146,47,.48);outline-offset:-3px}
     .academic-month-inner{min-width:900px}
@@ -744,7 +756,7 @@
     .academic-event.status-progress{background:#f2c94c;border-color:#b9922f;color:#1f2a24}
     .academic-event.status-pending{background:#d64545;border-color:#a83232;color:#fff}
     .academic-mobile-list{display:none}
-    .agenda-dialog{width:min(680px,calc(100% - 2rem));max-width:none;max-height:88dvh;margin:auto;padding:0;overflow:hidden;border:1px solid rgba(185,146,47,.5);border-radius:16px;background:var(--d2);color:var(--white);box-shadow:0 30px 90px rgba(0,0,0,.6)}
+    .agenda-dialog{position:fixed;top:50%;left:50%;z-index:10030;width:min(680px,calc(100% - 2rem));max-width:none;max-height:88dvh;margin:0;padding:0;overflow:hidden;transform:translate(-50%,-50%);border:1px solid rgba(185,146,47,.5);border-radius:16px;background:var(--d2);color:var(--white);box-shadow:0 30px 90px rgba(0,0,0,.6)}
     .agenda-dialog::backdrop{background:rgba(3,6,14,.8);backdrop-filter:blur(6px)}
     .agenda-dialog-shell{display:grid;grid-template-rows:auto minmax(0,1fr);max-height:88dvh}
     .agenda-dialog-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.2rem 1.4rem;border-bottom:1px solid rgba(185,146,47,.25);background:linear-gradient(135deg,rgba(31,77,58,.45),rgba(47,107,79,.18))}
@@ -1320,7 +1332,7 @@ html[data-theme="institucional"] .academic-month{background:#fff;border-color:rg
 html[data-theme="institucional"] .academic-weekdays{background:var(--agenda-cream)}
 html[data-theme="institucional"] .academic-week{background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(14.285714% - 1px),rgba(47,79,47,.11) calc(14.285714% - 1px),rgba(47,79,47,.11) 14.285714%);border-bottom-color:rgba(47,79,47,.12)}
 html[data-theme="institucional"] .academic-day-number{color:#52635a}
-html[data-theme="institucional"] .agenda-dialog{background:#fff;color:var(--agenda-ink);box-shadow:0 30px 90px rgba(23,59,47,.28)}
+html[data-theme="institucional"] .agenda-dialog{position:fixed;z-index:10030;background:#fff;color:var(--agenda-ink);box-shadow:0 30px 90px rgba(23,59,47,.28)}
 html[data-theme="institucional"] .agenda-dialog-header{background:linear-gradient(135deg,#eef1e8,#f7f4ea)}
 html[data-theme="institucional"] .agenda-dialog-header button{background:#fff;color:var(--agenda-ink)}
 html[data-theme="institucional"] .ecosystem-funnel{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(239,242,233,.92));border-color:rgba(47,79,47,.22);box-shadow:0 22px 55px rgba(23,59,47,.09)}
@@ -1369,6 +1381,11 @@ html[data-theme="institucional"] .funnel-phase-controls button:hover,html[data-t
     .main,.section,.agenda-ue-section,.academic-calendar,.academic-month{width:100%;max-width:100%;min-width:0}
     .agenda-ue-section,.academic-calendar,.academic-month{box-sizing:border-box;overflow-x:hidden}
     .academic-month-scroll{display:none}
+    .agenda-month-notices{padding:.85rem .9rem}
+    .agenda-month-notice{grid-template-columns:1fr;align-items:start;gap:.45rem;padding:.85rem;border-radius:10px}
+    .agenda-month-notice-date,.agenda-month-notice-status{justify-self:start}
+    .agenda-month-notice-content strong{font-size:.86rem}
+    .agenda-month-notice-content span{font-size:.7rem}
     .academic-mobile-list{display:grid;width:100%;min-width:0;box-sizing:border-box;gap:.75rem;padding:1rem}
     .academic-mobile-event{display:grid;grid-template-columns:minmax(4.4rem,auto) minmax(0,1fr);align-items:start;width:100%;max-width:100%;min-width:0;box-sizing:border-box;gap:.85rem;padding:.9rem;border:1px solid transparent;border-left-width:5px;border-radius:10px;color:var(--agenda-ink);font-family:var(--font-main);text-align:left;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.14)}
     .academic-mobile-event:focus-visible{outline:3px solid var(--agenda-gold);outline-offset:2px}
