@@ -869,6 +869,30 @@ document.addEventListener('keydown', event => {
   if (sidebar.classList.contains('open')) setMobileMenu(false);
   if (document.getElementById('pdfModal')?.style.display === 'flex') cerrarPDF();
 });
+
+const inspirationVideo = document.querySelector('[data-inspiration-video]');
+if (inspirationVideo) {
+  inspirationVideo.volume = 0.85;
+  inspirationVideo.muted = false;
+  inspirationVideo.play().catch(() => {
+    inspirationVideo.muted = true;
+    inspirationVideo.play().catch(() => {});
+  });
+
+  const enableInspirationAudio = () => {
+    inspirationVideo.muted = false;
+    inspirationVideo.volume = 0.85;
+    if (!inspirationVideo.paused) {
+      inspirationVideo.play().catch(() => {});
+    }
+    document.removeEventListener('click', enableInspirationAudio);
+    document.removeEventListener('touchstart', enableInspirationAudio);
+  };
+
+  document.addEventListener('click', enableInspirationAudio);
+  document.addEventListener('touchstart', enableInspirationAudio);
+}
+
 // accion abrir y cerrar video
 function abrirVideo(url) {
   const modal = document.getElementById("videoModal");
