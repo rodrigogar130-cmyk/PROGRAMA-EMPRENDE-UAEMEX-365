@@ -30,6 +30,48 @@ li<!DOCTYPE html>
   <span></span><span></span><span></span>
 </button>
 
+<!-- DESKTOP HEADER -->
+<header class="desktop-header" aria-label="Navegación principal de escritorio">
+  <div class="desktop-header-inner">
+    <a class="desktop-brand nav-item" data-section="home" aria-label="Ir al inicio">
+      <img src="imgenes/logo-uaemex.png" alt="Logo UAEMéx">
+      <div class="desktop-brand-text">
+        <strong>Dirección de Desarrollo Empresarial</strong>
+        <span>UAEMéx</span>
+      </div>
+    </a>
+    <nav class="desktop-nav" aria-label="Secciones principales">
+      <a class="desktop-nav-link nav-item" data-section="home">Inicio</a>
+      <a class="desktop-nav-link nav-item" data-section="ecosistema">Ecosistema UAEMéx</a>
+      <div class="desktop-nav-group">
+        <button class="desktop-nav-trigger" type="button" aria-haspopup="true">Fomento Empresarial</button>
+        <div class="desktop-dropdown">
+          <a class="nav-item" data-section="fomento-empresarial">Fomento Empresarial</a>
+          <a class="nav-item" data-section="metodologia-fomento">Metodología de Fomento</a>
+          <a class="nav-item" data-section="ruta-formativa-inicial">Ruta Formativa Inicial</a>
+          <a class="nav-item" data-section="actividades-complementarias">Actividades complementarias</a>
+          <a class="nav-item" data-section="evaluacion-regional">Evaluación Regional</a>
+          <a class="nav-item" data-section="proceso-seleccion">Proceso de selección</a>
+        </div>
+      </div>
+      <div class="desktop-nav-group">
+        <button class="desktop-nav-trigger" type="button" aria-haspopup="true">Unidades de Emprendimiento</button>
+        <div class="desktop-dropdown">
+          <a class="nav-item" data-section="programa">Programa Emprende UAEMéx 365</a>
+          <a class="nav-item" data-section="manual">Propósito e impacto</a>
+          <a class="nav-item" data-section="metodologia">Metodología 365</a>
+          <a class="nav-item" data-section="actividades">Actividades de activación</a>
+          <a class="nav-item" data-section="herramientas">Herramientas digitales</a>
+          <a class="nav-item" data-section="agenda-ue">Agenda UE 2026B</a>
+        </div>
+      </div>
+      <a class="desktop-nav-link nav-item" data-section="incubacion">Incubación de la Innovación</a>
+      <a class="desktop-nav-link nav-item" data-section="eventos">Eventos</a>
+      <a class="desktop-nav-link nav-item" data-section="temas">Cambiar tema</a>
+    </nav>
+  </div>
+</header>
+
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-head">
@@ -141,12 +183,6 @@ li<!DOCTYPE html>
         </aside>
       </div>
     </div>
-
-    <nav class="home-area-actions reveal" aria-label="Áreas de la Dirección de Desarrollo Empresarial">
-      <a class="btn home-area-btn" data-section="fomento-empresarial"><span aria-hidden="true">🔎</span>Fomento Empresarial</a>
-      <a class="btn home-area-btn" data-section="programa"><span aria-hidden="true">💡</span>Unidades de Emprendimiento</a>
-      <a class="btn home-area-btn" data-section="incubacion"><span aria-hidden="true">📈</span>Incubación de la Innovación</a>
-    </nav>
 
   </section>
 
@@ -835,7 +871,7 @@ li<!DOCTYPE html>
     <div class="events-grid reveal">
       <article class="event-card event-card-featured event-card-upcoming">
         <div class="event-card-media">
-          <video class="event-card-video" data-inspiration-video autoplay loop playsinline preload="metadata" controls>
+          <video class="event-card-video" data-inspiration-video loop playsinline preload="metadata" controls>
             <source src="Videos/inspiration-days-2026b.mp4" type="video/mp4">
             Tu navegador no soporta video.
           </video>
@@ -872,7 +908,12 @@ li<!DOCTYPE html>
             <span>Haz clic para ampliar</span>
           </button>
         </div>
-        <section class="event-details" aria-labelledby="eventDetailsTitle">
+        <details class="event-details event-details-disclosure">
+          <summary class="event-details-summary">
+            <span>Ver detalles del evento</span>
+            <small>Información complementaria</small>
+          </summary>
+          <div class="event-details-panel">
           <div class="event-details-heading">
             <div>
               <span class="tag">Información complementaria</span>
@@ -902,7 +943,8 @@ li<!DOCTYPE html>
               </div>
             </article>
           </div>
-        </section>
+          </div>
+        </details>
       </article>
     </div>
   </section>
@@ -1087,6 +1129,19 @@ li<!DOCTYPE html>
   </section>
 
 </main>
+
+<aside class="event-announcement" id="eventAnnouncement" aria-live="polite" aria-label="Próximo evento destacado">
+  <button class="event-announcement-close" id="closeEventAnnouncement" type="button" aria-label="Cerrar anuncio">×</button>
+  <div class="event-announcement-media" aria-hidden="true">
+    <video data-announcement-video autoplay muted loop playsinline preload="metadata">
+      <source src="Videos/inspiration-days-2026b.mp4" type="video/mp4">
+    </video>
+  </div>
+  <span class="event-announcement-kicker">Próximo evento</span>
+  <strong>Inspiration Days 2026 B</strong>
+  <p>26 de agosto · 10:00 hrs · Facultad de Ciencias de la Conducta</p>
+  <button class="event-announcement-link" id="eventAnnouncementLink" type="button">Ver detalles</button>
+</aside>
 
 <!-- ══════════════ VISOR DEL ESQUEMA DEL EVENTO ══════════════ -->
 <div class="problem-carousel-modal" id="problemCarouselModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="problemCarouselTitle">

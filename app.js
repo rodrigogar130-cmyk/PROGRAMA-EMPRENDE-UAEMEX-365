@@ -160,6 +160,7 @@ openGroupForSection(document.querySelector('.section.active')?.id);
     if (closeMobile && window.innerWidth <= 900) {
       setMobileMenu(false);
     }
+    syncInspirationVideoForSection(id);
     // Re-trigger reveals for new section
     setTimeout(() => {
       target.querySelectorAll('.reveal').forEach(el => {
@@ -871,27 +872,44 @@ document.addEventListener('keydown', event => {
 });
 
 const inspirationVideo = document.querySelector('[data-inspiration-video]');
-if (inspirationVideo) {
-  inspirationVideo.volume = 0.85;
-  inspirationVideo.muted = false;
-  inspirationVideo.play().catch(() => {
-    inspirationVideo.muted = true;
-    inspirationVideo.play().catch(() => {});
-  });
+const announcementVideo = document.querySelector('[data-announcement-video]');
 
-  const enableInspirationAudio = () => {
+function syncInspirationVideoForSection(sectionId) {
+  if (!inspirationVideo) return;
+
+  if (sectionId === 'eventos') {
     inspirationVideo.muted = false;
     inspirationVideo.volume = 0.85;
-    if (!inspirationVideo.paused) {
-      inspirationVideo.play().catch(() => {});
-    }
-    document.removeEventListener('click', enableInspirationAudio);
-    document.removeEventListener('touchstart', enableInspirationAudio);
-  };
+    inspirationVideo.play().catch(() => {});
+    return;
+  }
 
-  document.addEventListener('click', enableInspirationAudio);
-  document.addEventListener('touchstart', enableInspirationAudio);
+  inspirationVideo.pause();
+  inspirationVideo.muted = true;
 }
+
+if (inspirationVideo) {
+  inspirationVideo.muted = true;
+}
+
+if (announcementVideo) {
+  announcementVideo.muted = true;
+  announcementVideo.play().catch(() => {});
+}
+
+const eventAnnouncement = document.getElementById('eventAnnouncement');
+const closeEventAnnouncement = document.getElementById('closeEventAnnouncement');
+const eventAnnouncementLink = document.getElementById('eventAnnouncementLink');
+
+function hideEventAnnouncement() {
+  eventAnnouncement?.classList.add('is-hidden');
+}
+
+closeEventAnnouncement?.addEventListener('click', hideEventAnnouncement);
+eventAnnouncementLink?.addEventListener('click', () => {
+  hideEventAnnouncement();
+  goTo('eventos');
+});
 
 // accion abrir y cerrar video
 function abrirVideo(url) {
